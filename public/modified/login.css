@@ -14,6 +14,14 @@ body {
     height: 100vh;
 }
 
+.label_data{
+    color: #1a202c;
+    font-weight: 500;
+    display: block;
+    text-align: left;
+    font-size: 14px;
+}
+
 .left {
     flex: 1;
     background: url("./login.jpg") no-repeat center center;
@@ -92,8 +100,8 @@ body {
 }
 
 .checkbox-label input[type="checkbox"] {
-    appearance: none;
-    -webkit-appearance: none;
+    /*appearance: none;*/
+    /*-webkit-appearance: none;*/
     background-color: #fff;
     border: 1px solid #ccc;
     width: 18px;
@@ -105,22 +113,22 @@ body {
     transition: all 0.2s ease;
 }
 
-.checkbox-label input[type="checkbox"]:checked {
-    background-color: #000;
-    border-color: #000;
-}
+/*.checkbox-label input[type="checkbox"]:checked {*/
+/*    background-color: #000;*/
+/*    border-color: #000;*/
+/*}*/
 
-.checkbox-label input[type="checkbox"]:checked::after {
-    content: "";
-    position: absolute;
-    left: 5px;
-    top: 2px;
-    width: 5px;
-    height: 11px;
-    border: solid #fff;
-    border-width: 0 2px 2px 0;
-    transform: rotate(45deg);
-}
+/*.checkbox-label input[type="checkbox"]:checked::after {*/
+/*    content: "";*/
+/*    position: absolute;*/
+/*    left: 5px;*/
+/*    top: 2px;*/
+/*    width: 5px;*/
+/*    height: 11px;*/
+/*    border: solid #fff;*/
+/*    border-width: 0 2px 2px 0;*/
+/*    transform: rotate(45deg);*/
+/*}*/
 
 @media (max-width: 768px) {
     body {

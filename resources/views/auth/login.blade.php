@@ -22,13 +22,15 @@
         <form method="POST" action="{{ route('login') }}">
             @csrf
 
+            <label for="" class="label_data">Your Email</label>
+
             <!-- Email Address -->
             <input
                 id="email"
                 type="email"
                 name="email"
-                placeholder="Email"
-                value="{{ old('email') }}"
+                placeholder=""
+                value=""
                 required
                 autofocus
                 autocomplete="username"
@@ -38,11 +40,14 @@
             @enderror
 
             <!-- Password -->
+
+            <label for="" class="label_data">Password</label>
+
             <input
                 id="password"
                 type="password"
                 name="password"
-                placeholder="Password"
+                placeholder=""
                 required
                 autocomplete="current-password"
             >
@@ -72,7 +77,7 @@
 
             <div class="options">
                 @if (Route::has('password.request'))
-                    Don’t have an account? <a href="{{ route('password.request') }}" style="text-decoration: none"><span
+                    Don’t have an account? <a href="{{ route('register') }}" style="text-decoration: none"><span
                             style="color: #001AFF">Sign up</span></a>
                 @endif
             </div>
