@@ -49,15 +49,56 @@
             <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2"/>
         </div>
 
+        {{-- click validation --}}
+
+        <div class="mt-4">
+            <label class="flex items-center">
+                <input type="checkbox" name="terms" id="terms" class="mr-2">
+                <span class="text-sm text-gray-600">
+            By checking this box, you are accepting the terms of use set by <span class="font-semibold">Editable</span>
+        </span>
+            </label>
+            @error('terms')
+            <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+            @enderror
+        </div>
+
         <div class="flex items-center justify-end mt-4">
             <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                href="{{ route('login') }}">
                 {{ __('Already registered?') }}
             </a>
 
-            <x-primary-button class="ms-4">
+            <x-primary-button class="ms-4" id="register_data" disabled>
                 {{ __('Register') }}
             </x-primary-button>
+
         </div>
     </form>
 </x-guest-layout>
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const terms = document.querySelector("#terms");
+        const registerBtn = document.querySelector("#register_data");
+
+        // Initially disabled and grayed out
+        registerBtn.disabled = true;
+        registerBtn.classList.add('bg-gray-400', 'hover:bg-gray-400', 'cursor-not-allowed');
+
+        terms.addEventListener('change', function (e) {
+            const isChecked = e.target.checked;
+
+            registerBtn.disabled = !isChecked;
+
+            if (isChecked) {
+                registerBtn.classList.remove('bg-gray-400', 'hover:bg-gray-400', 'cursor-not-allowed');
+                registerBtn.classList.add('bg-gray-600', 'hover:bg-gray-700', 'cursor-pointer');
+            } else {
+                registerBtn.classList.remove('bg-gray-600', 'hover:bg-gray-700', 'cursor-pointer');
+                registerBtn.classList.add('bg-gray-400', 'hover:bg-gray-400', 'cursor-not-allowed');
+            }
+        });
+    });
+</script>
