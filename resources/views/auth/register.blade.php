@@ -1,52 +1,154 @@
-<x-guest-layout>
-    <form method="POST" action="{{ route('register') }}">
-        @csrf
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Register to Editable</title>
+    <link rel="stylesheet" href="{{ asset('modified/login.css') }}">
+</head>
+<body>
+<div class="left"></div>
+<div class="right">
+    <div class="login-box">
+        <h2>Signup to Editable</h2>
 
-        <!-- Name -->
-        <div>
-            <x-input-label for="name" :value="__('Name')" />
-            <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
-            <x-input-error :messages="$errors->get('name')" class="mt-2" />
-        </div>
+        <form method="POST" action="{{ route('register') }}">
+            @csrf
 
-        <!-- Email Address -->
-        <div class="mt-4">
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autocomplete="username" />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
-        </div>
+            <label for="" class="label_data">Your Name</label>
 
-        <!-- Password -->
-        <div class="mt-4">
-            <x-input-label for="password" :value="__('Password')" />
+            <!-- Name -->
+            <input
+                id="name"
+                type="text"
+                name="name"
+                placeholder=""
+                value="{{ old('name') }}"
+                required
+                autofocus
+                autocomplete="name"
+            >
+            @error('name')
+            <div style="color: red; font-size: 13px;">{{ $message }}</div>
+            @enderror
 
-            <x-text-input id="password" class="block mt-1 w-full"
-                            type="password"
-                            name="password"
-                            required autocomplete="new-password" />
+            <!-- Email Address -->
+            <label for="" class="label_data">Your Email</label>
 
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
-        </div>
+            <input
+                id="email"
+                type="email"
+                name="email"
+                placeholder=""
+                value="{{ old('email') }}"
+                required
+                autocomplete="username"
+            >
+            @error('email')
+            <div style="color: red; font-size: 13px;">{{ $message }}</div>
+            @enderror
 
-        <!-- Confirm Password -->
-        <div class="mt-4">
-            <x-input-label for="password_confirmation" :value="__('Confirm Password')" />
 
-            <x-text-input id="password_confirmation" class="block mt-1 w-full"
-                            type="password"
-                            name="password_confirmation" required autocomplete="new-password" />
+            <!-- Phone Number -->
+            <label for="" class="label_data">Your Whatsapp Number</label>
 
-            <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
-        </div>
+            <input
+                id="phone"
+                type="text"
+                name="phone"
+                placeholder=""
+                value="{{ old('phone') }}"
+                required
+                autocomplete="phone"
+            >
+            @error('phone')
+            <div style="color: red; font-size: 13px;">{{ $message }}</div>
+            @enderror
 
-        <div class="flex items-center justify-end mt-4">
-            <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('login') }}">
-                {{ __('Already registered?') }}
-            </a>
+            <!-- Password -->
 
-            <x-primary-button class="ms-4">
-                {{ __('Register') }}
-            </x-primary-button>
-        </div>
-    </form>
-</x-guest-layout>
+            <label for="" class="label_data">Password</label>
+
+            <input
+                id="password"
+                type="password"
+                name="password"
+                placeholder=""
+                required
+                autocomplete="new-password"
+            >
+            @error('password')
+            <div style="color: red; font-size: 13px;">{{ $message }}</div>
+            @enderror
+
+            <!-- Confirm Password -->
+
+            <label for="" class="label_data">Retype Password</label>
+
+
+            <input
+                id="password_confirmation"
+                type="password"
+                name="password_confirmation"
+                placeholder=""
+                required
+                autocomplete="new-password"
+            >
+            @error('password_confirmation')
+            <div style="color: red; font-size: 13px;">{{ $message }}</div>
+            @enderror
+
+            <!-- Terms Checkbox -->
+            <div class="remember-me" style="margin-top: 10px;">
+                <label for="terms" class="checkbox-label">
+                    <input id="terms" type="checkbox" name="terms" class="custom-checkbox">
+                    <span style="text-align: left">
+                     By checking this box, you are accepting the <span style="color: #001AFF">terms of use </span>set by Editable
+                    </span>
+                </label>
+            </div>
+
+            @error('terms')
+            <div style="color: red; font-size: 13px;">{{ $message }}</div>
+            @enderror
+
+            <!-- Register Button -->
+            <button type="submit" id="register_button" disabled>Register</button>
+
+            <!-- Already Registered Link -->
+            <div class="options">
+                Already registered?
+                <a href="{{ route('login') }}" style="text-decoration: none">
+                    <span style="color: #001AFF">Login here</span>
+                </a>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const terms = document.querySelector("#terms");
+        const registerBtn = document.querySelector("#register_button");
+
+        registerBtn.disabled = true;
+        registerBtn.style.opacity = 0.5;
+        registerBtn.style.cursor = "not-allowed";
+
+        terms.addEventListener('change', function (e) {
+            const isChecked = e.target.checked;
+            registerBtn.disabled = !isChecked;
+            if (isChecked) {
+                registerBtn.style.opacity = 1;
+                registerBtn.style.cursor = "pointer";
+            } else {
+                registerBtn.style.opacity = 0.5;
+                registerBtn.style.cursor = "not-allowed";
+            }
+        });
+    });
+</script>
+
+</body>
+</html>
