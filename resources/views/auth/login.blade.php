@@ -60,14 +60,23 @@
 
 
             <!-- Submit Button -->
-            <button type="submit">Log in</button>
+            <button type="submit">Login</button>
 
             <!-- Forgot Password Link -->
             <div class="options">
                 @if (Route::has('password.request'))
-                    <a href="{{ route('password.request') }}">Forgot your password?</a>
+                    Forgot your password? <a href="{{ route('password.request') }}" style="text-decoration: none"><span
+                            style="color: #001AFF">Click Here</span></a>
                 @endif
             </div>
+
+            <div class="options">
+                @if (Route::has('password.request'))
+                    Don’t have an account? <a href="{{ route('password.request') }}" style="text-decoration: none"><span
+                            style="color: #001AFF">Sign up</span></a>
+                @endif
+            </div>
+
         </form>
     </div>
 </div>

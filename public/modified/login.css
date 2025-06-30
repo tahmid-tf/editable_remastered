@@ -37,6 +37,8 @@ body {
 .login-box h2 {
     margin-bottom: 25px;
     font-weight: 600;
+    text-align: left;
+    color: #868686;
 }
 
 .login-box input {
@@ -79,7 +81,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: flex-start;
-    margin: 10px 0;
+    /*margin: 10px 0;*/
 }
 
 .checkbox-label {
