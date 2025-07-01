@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use Spatie\Permission\Models\Role;
 
 Route::get('/', function () {
     return view('auth.login');
@@ -19,4 +20,13 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
+
+
+// --------------------------- Spatie test ---------------------------
+
+//Route::get('/test', function () {
+//    $role = Role::create(['name' => 'user']);
+//    \App\Models\User::find(2)->assignRole('user');
+//    return \App\Models\User::find(1)->hasRole('admin');
+//});
