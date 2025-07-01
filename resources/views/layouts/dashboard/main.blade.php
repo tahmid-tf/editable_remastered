@@ -1,319 +1,223 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="utf-8"/>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1, shrink-to-fit=no"
-    />
-    <meta name="description" content=""/>
-    <meta name="author" content=""/>
-    <title>Dashboard</title>
-    <link
-        href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css"
-        rel="stylesheet"
-    />
-    <link
-        href="https://cdn.jsdelivr.net/npm/litepicker/dist/css/litepicker.css"
-        rel="stylesheet"
-    />
-    <link href="{{ asset('css/styles.css') }}" rel="stylesheet"/>
-    <link rel="icon" type="image/x-icon" href="{{ asset('assets/img/favicon.png') }}"/>
-    <script
-        data-search-pseudo-elements
-        defer
-        src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/js/all.min.js"
-        crossorigin="anonymous"
-    ></script>
-    <script
-        src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.28.0/feather.min.js"
-        crossorigin="anonymous"
-    ></script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
 
-    {{--    @livewireStyles--}}
+    <title>SB Admin 2 - Dashboard</title>
+
+    <!-- Custom fonts for this template-->
+    <link href="{{ asset('vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
+
+    <!-- Custom styles for this template-->
+    <link href="{{ asset('css/sb-admin-2.min.css') }}" rel="stylesheet">
+
+    @livewireStyles
 </head>
-<body class="nav-fixed">
-<nav
-    class="topnav navbar navbar-expand shadow justify-content-between justify-content-sm-start navbar-light bg-white"
-    id="sidenavAccordion"
->
-    <!-- Sidenav Toggle Button-->
-    <button
-        class="btn btn-icon btn-transparent-dark order-1 order-lg-0 me-2 ms-lg-2 me-lg-0"
-        id="sidebarToggle"
-    >
-        <i data-feather="menu"></i>
-    </button>
-    <!-- Navbar Brand-->
-    <!-- * * Tip * * You can use text or an image for your navbar brand.-->
-    <!-- * * * * * * When using an image, we recommend the SVG format.-->
-    <!-- * * * * * * Dimensions: Maximum height: 32px, maximum width: 240px-->
-    <a class="navbar-brand pe-3 ps-4 ps-lg-2" href="#!">Dashboard</a>
-    <!-- Navbar Search Input-->
 
-    <!-- Navbar Items-->
-    <ul class="navbar-nav align-items-center ms-auto">
+<body id="page-top">
 
-        <!-- Navbar Search Dropdown-->
-        <!-- * * Note: * * Visible only below the lg breakpoint-->
-        <li class="nav-item dropdown no-caret me-3 d-lg-none">
-            <a
-                class="btn btn-icon btn-transparent-dark dropdown-toggle"
-                id="searchDropdown"
-                href="#"
-                role="button"
-                data-bs-toggle="dropdown"
-                aria-haspopup="true"
-                aria-expanded="false"
-            ><i data-feather="search"></i
-                ></a>
-            <!-- Dropdown - Search-->
-            <div
-                class="dropdown-menu dropdown-menu-end p-3 shadow animated--fade-in-up"
-                aria-labelledby="searchDropdown"
-            >
-                <form class="form-inline me-auto w-100">
-                    <div class="input-group input-group-joined input-group-solid">
-                        <input
-                            class="form-control pe-0"
-                            type="text"
-                            placeholder="Search for..."
-                            aria-label="Search"
-                            aria-describedby="basic-addon2"
-                        />
-                        <div class="input-group-text">
-                            <i data-feather="search"></i>
-                        </div>
-                    </div>
-                </form>
+<!-- Page Wrapper -->
+<div id="wrapper">
+
+    <!-- Sidebar -->
+    <ul class="navbar-nav sidebar sidebar-dark accordion" id="accordionSidebar"
+        style="background-color: #1E1E1E !important;">
+
+        <!-- Sidebar - Brand -->
+        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+            <div class="sidebar-brand-icon rotate-n-15">
+                {{--                <i class="fas fa-laugh-wink"></i>--}}
             </div>
-        </li>
-        <!-- -------------------------------------------------- Alerts Dropdown -------------------------------------------------- -->
-
-        <li
-            class="nav-item dropdown no-caret d-none d-sm-block me-3 dropdown-notifications"
-        >
-            <a
-                class="btn btn-icon btn-transparent-dark dropdown-toggle"
-                id="navbarDropdownAlerts"
-                href="javascript:void(0);"
-                role="button"
-                data-bs-toggle="dropdown"
-                aria-haspopup="true"
-                aria-expanded="false"
-            ><i data-feather="bell"></i
-                ></a>
-            <div
-                class="dropdown-menu dropdown-menu-end border-0 shadow animated--fade-in-up"
-                aria-labelledby="navbarDropdownAlerts"
-            >
-                <h6 class="dropdown-header dropdown-notifications-header">
-                    <i class="me-2" data-feather="bell"></i>
-                    Alerts Center
-                </h6>
-                <!-- Example Alert 1-->
-                <a class="dropdown-item dropdown-notifications-item" href="#!">
-                    <div class="dropdown-notifications-item-icon bg-warning">
-                        <i data-feather="activity"></i>
-                    </div>
-                    <div class="dropdown-notifications-item-content">
-                        <div class="dropdown-notifications-item-content-details">
-                            December 29, 2021
-                        </div>
-                        <div class="dropdown-notifications-item-content-text">
-                            This is an alert message. It's nothing serious, but it
-                            requires your attention.
-                        </div>
-                    </div>
-                </a>
-                <!-- Example Alert 2-->
-                <a class="dropdown-item dropdown-notifications-item" href="#!">
-                    <div class="dropdown-notifications-item-icon bg-info">
-                        <i data-feather="bar-chart"></i>
-                    </div>
-                    <div class="dropdown-notifications-item-content">
-                        <div class="dropdown-notifications-item-content-details">
-                            December 22, 2021
-                        </div>
-                        <div class="dropdown-notifications-item-content-text">
-                            A new monthly report is ready. Click here to view!
-                        </div>
-                    </div>
-                </a>
-                <!-- Example Alert 3-->
-                <a class="dropdown-item dropdown-notifications-item" href="#!">
-                    <div class="dropdown-notifications-item-icon bg-danger">
-                        <i class="fas fa-exclamation-triangle"></i>
-                    </div>
-                    <div class="dropdown-notifications-item-content">
-                        <div class="dropdown-notifications-item-content-details">
-                            December 8, 2021
-                        </div>
-                        <div class="dropdown-notifications-item-content-text">
-                            Critical system failure, systems shutting down.
-                        </div>
-                    </div>
-                </a>
-                <!-- Example Alert 4-->
-                <a class="dropdown-item dropdown-notifications-item" href="#!">
-                    <div class="dropdown-notifications-item-icon bg-success">
-                        <i data-feather="user-plus"></i>
-                    </div>
-                    <div class="dropdown-notifications-item-content">
-                        <div class="dropdown-notifications-item-content-details">
-                            December 2, 2021
-                        </div>
-                        <div class="dropdown-notifications-item-content-text">
-                            New user request. Woody has requested access to the
-                            organization.
-                        </div>
-                    </div>
-                </a>
-                <a class="dropdown-item dropdown-notifications-footer" href="#!"
-                >View All Alerts</a
-                >
+            <div class="sidebar-brand-text mx-3">
+                Editable
             </div>
-        </li>
-
-        <!-- -------------------------------------------------- Alerts Dropdown -------------------------------------------------- -->
+        </a>
 
 
-        <!-- User Dropdown-->
-        <li class="nav-item dropdown no-caret dropdown-user me-3 me-lg-4">
-            <a
-                class="btn btn-icon btn-transparent-dark dropdown-toggle"
-                id="navbarDropdownUserImage"
-                href="javascript:void(0);"
-                role="button"
-                data-bs-toggle="dropdown"
-                aria-haspopup="true"
-                aria-expanded="false"
-            ><img
-                    class="img-fluid"
-                    src="{{ asset('assets/img/illustrations/profiles/profile-1.png') }}"
-                /></a>
-            <div
-                class="dropdown-menu dropdown-menu-end border-0 shadow animated--fade-in-up"
-                aria-labelledby="navbarDropdownUserImage"
-            >
-                <h6 class="dropdown-header d-flex align-items-center">
-                    <img
-                        class="dropdown-user-img"
-                        src="{{ asset('assets/img/illustrations/profiles/profile-1.png') }}"
-                    />
-                    <div class="dropdown-user-details">
-                        <div class="dropdown-user-details-name">Valerie Luna</div>
-                        <div class="dropdown-user-details-email">vluna@aol.com</div>
-                    </div>
-                </h6>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#!">
-                    <div class="dropdown-item-icon">
-                        <i data-feather="settings"></i>
-                    </div>
-                    Account
-                </a>
-                <a class="dropdown-item" href="#!">
-                    <div class="dropdown-item-icon">
-                        <i data-feather="log-out"></i>
-                    </div>
-                    Logout
-                </a>
-            </div>
-        </li>
+        <!-- Heading -->
+        {{--        <div class="sidebar-heading">--}}
+        {{--            Addons--}}
+        {{--        </div>--}}
+
+
+        {{-- ------------------------------- Sidebar Menu ------------------------------- --}}
+
+        <br>
+
+        <x-panel.sidebar></x-panel.sidebar>
+
+        <br>
+
+        {{-- ------------------------------- Sidebar Menu ------------------------------- --}}
+
+
+        <!-- Sidebar Toggler (Sidebar) -->
+        <div class="text-center d-none d-md-inline">
+            <button class="rounded-circle border-0" id="sidebarToggle"></button>
+        </div>
+
+
     </ul>
-</nav>
-<div id="layoutSidenav">
-    <div id="layoutSidenav_nav">
-        <nav class="sidenav shadow-right sidenav-light">
-            <div class="sidenav-menu">
-                <div class="nav accordion" id="accordionSidenav">
-                    <!-- Sidenav Menu Heading (Account)-->
-                    <!-- * * Note: * * Visible only on and above the sm breakpoint-->
-                    {{--                    <div class="sidenav-menu-heading d-sm-none">Account</div>--}}
-                    <!-- Sidenav Link (Alerts)-->
-                    <!-- * * Note: * * Visible only on and above the sm breakpoint-->
-                    {{--                    <a class="nav-link d-sm-none" href="#!">--}}
-                    {{--                        <div class="nav-link-icon"><i data-feather="bell"></i></div>--}}
-                    {{--                        Alerts--}}
-                    {{--                        <span class="badge bg-warning-soft text-warning ms-auto"--}}
-                    {{--                        >4 New!</span--}}
-                    {{--                        >--}}
-                    {{--                    </a>--}}
-                    <!-- Sidenav Link (Messages)-->
-                    <!-- * * Note: * * Visible only on and above the sm breakpoint-->
-                    {{--                    <a class="nav-link d-sm-none" href="#!">--}}
-                    {{--                        <div class="nav-link-icon"><i data-feather="mail"></i></div>--}}
-                    {{--                        Messages--}}
-                    {{--                        <span class="badge bg-success-soft text-success ms-auto"--}}
-                    {{--                        >2 New!</span--}}
-                    {{--                        >--}}
-                    {{--                    </a>--}}
+    <!-- End of Sidebar -->
 
-                    {{--  ----------------------------------------------------------- SideBar ----------------------------------------------------------- --}}
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
 
-                    <x-panel.sidebar></x-panel.sidebar>
+        <!-- Main Content -->
+        <div id="content">
 
-                    {{--  ----------------------------------------------------------- SideBar ----------------------------------------------------------- --}}
+            <!-- Topbar -->
+            <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
 
-                </div>
+                <!-- Sidebar Toggle (Topbar) -->
+                <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                    <i class="fa fa-bars"></i>
+                </button>
+
+
+                {{--  -------------------------------- Toolbar side portion -------------------------------- --}}
+
+                <!-- Topbar Search -->
+
+                {{--                <form--}}
+                {{--                    class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">--}}
+                {{--                    <div class="input-group">--}}
+                {{--                        <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."--}}
+                {{--                               aria-label="Search" aria-describedby="basic-addon2">--}}
+                {{--                        <div class="input-group-append">--}}
+                {{--                            <button class="btn btn-primary" type="button">--}}
+                {{--                                <i class="fas fa-search fa-sm"></i>--}}
+                {{--                            </button>--}}
+                {{--                        </div>--}}
+                {{--                    </div>--}}
+                {{--                </form>--}}
+
+                {{--  -------------------------------- Toolbar side portion -------------------------------- --}}
+
+
+                <!-- Topbar Navbar -->
+                <ul class="navbar-nav ml-auto">
+
+                    <!-- Nav Item - User Information -->
+                    <li class="nav-item dropdown no-arrow">
+                        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span class="mr-2 d-none d-lg-inline text-gray-600 small">Douglas McGee</span>
+                            <img class="img-profile rounded-circle"
+                                 src="{{ asset('img/undraw_profile.svg') }}">
+                        </a>
+                        <!-- Dropdown - User Information -->
+                        <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                             aria-labelledby="userDropdown">
+                            <a class="dropdown-item" href="#">
+                                <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                                Profile
+                            </a>
+                            <a class="dropdown-item" href="#">
+                                <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
+                                Settings
+                            </a>
+                            <a class="dropdown-item" href="#">
+                                <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
+                                Activity Log
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                                <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                Logout
+                            </a>
+                        </div>
+                    </li>
+
+                </ul>
+
+            </nav>
+            <!-- End of Topbar -->
+
+
+            {{-- ---------------------------------------- Page Container ---------------------------------------- --}}
+
+            <!-- Begin Page Content -->
+            <div>
+
+                {{ $slot }}
+
             </div>
-            <!-- Sidenav Footer-->
-            <div class="sidenav-footer">
-                <div class="sidenav-footer-content">
-                    <div class="sidenav-footer-subtitle">Logged in as:</div>
-                    <div class="sidenav-footer-title">Valerie Luna</div>
-                </div>
-            </div>
-        </nav>
-    </div>
-    <div id="layoutSidenav_content">
+            <!-- /.container-fluid -->
+
+            {{-- ---------------------------------------- Page Container ---------------------------------------- --}}
 
 
-        {{--  ----------------------- main content ----------------------- --}}
-        {{ $slot }}
-        {{--  ----------------------- main content ----------------------- --}}
+        </div>
+        <!-- End of Main Content -->
 
-
-        <footer class="footer-admin mt-auto footer-light">
-            <div class="container-xl px-4">
-                <div class="row">
-                    <div class="col-md-6 small">
-                        Copyright &copy; Your Website 2021
-                    </div>
-                    <div class="col-md-6 text-md-end small">
-                        <a href="#!">Privacy Policy</a>
-                        &middot;
-                        <a href="#!">Terms &amp; Conditions</a>
-                    </div>
+        <!-- Footer -->
+        <footer class="sticky-footer bg-white">
+            <div class="container my-auto">
+                <div class="copyright text-center my-auto">
+                    <span>Copyright &copy; Your Website 2021</span>
                 </div>
             </div>
         </footer>
+        <!-- End of Footer -->
+
+    </div>
+    <!-- End of Content Wrapper -->
+
+</div>
+<!-- End of Page Wrapper -->
+
+<!-- Scroll to Top Button-->
+<a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+</a>
+
+<!-- Logout Modal-->
+<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                <a class="btn btn-primary" href="login.html">Logout</a>
+            </div>
+        </div>
     </div>
 </div>
-<script
-    src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
-    crossorigin="anonymous"
-></script>
-<script src="{{ asset('js/scripts.js') }}"></script>
-<script
-    src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"
-    crossorigin="anonymous"
-></script>
-<script src="{{ asset('assets/demo/chart-area-demo.js') }}"></script>
-<script src="{{ asset('assets/demo/chart-bar-demo.js') }}"></script>
-<script
-    src="https://cdn.jsdelivr.net/npm/simple-datatables@latest"
-    crossorigin="anonymous"
-></script>
-<script src="{{ asset('js/datatables/datatables-simple-demo.js') }}"></script>
-<script
-    src="https://cdn.jsdelivr.net/npm/litepicker/dist/bundle.js"
-    crossorigin="anonymous"
-></script>
-<script src="{{ asset('js/litepicker.js') }}"></script>
 
-{{--@livewireScripts--}}
+<!-- Bootstrap core JavaScript-->
+<script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
+<script src="{{ asset('vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+
+<!-- Core plugin JavaScript-->
+<script src="{{ asset('vendor/jquery-easing/jquery.easing.min.js') }}"></script>
+
+<!-- Custom scripts for all pages-->
+<script src="{{ asset('js/sb-admin-2.min.js') }}"></script>
+
+<!-- Page level plugins -->
+<script src="{{ asset('vendor/chart.js/Chart.min.js') }}"></script>
+
+<!-- Page level custom scripts -->
+<script src="{{ asset('js/demo/chart-area-demo.js') }}"></script>
+<script src="{{ asset('js/demo/chart-pie-demo.js') }}"></script>
+
+@livewireScripts
 </body>
+
 </html>

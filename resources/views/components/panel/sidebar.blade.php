@@ -1,15 +1,16 @@
-<!-- Sidenav Menu Heading (Core)-->
-<div class="sidenav-menu-heading">Core</div>
+<!-- Nav Item - Charts -->
+<li class="nav-item">
+    <a class="nav-link" href="charts.html">
+{{--        <i class="fas fa-fw fa-chart-area"></i>--}}
+        <span>Charts</span></a>
+</li>
 
-<!-- Sidenav Link (Charts)-->
-<a class="nav-link" href="#!">
-    <div class="nav-link-icon">
-        <i data-feather="filter"></i>
-    </div>
-    Charts
-</a>
-<!-- Sidenav Link (Tables)-->
-<a class="nav-link" href="#!">
-    <div class="nav-link-icon"><i data-feather="filter"></i></div>
-    Tables
-</a>
+<!-- Nav Item - Tables -->
+<li class="nav-item">
+    <a class="nav-link" href="tables.html">
+{{--        <i class="fas fa-fw fa-table"></i>--}}
+        <span>Tables</span></a>
+</li>
+
+<!-- Divider -->
+{{--        <hr class="sidebar-divider d-none d-md-block">--}}
