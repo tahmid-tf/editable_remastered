@@ -30,3 +30,7 @@ require __DIR__ . '/auth.php';
 //    \App\Models\User::find(2)->assignRole('user');
 //    return \App\Models\User::find(1)->hasRole('admin');
 //});
+
+Route::get('dashboard_test', function () {
+    return view('layouts.dashboard.main');
+});
