@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use Spatie\Permission\Models\Role;
 
 Route::get('/', function () {
     return view('auth.login');
@@ -19,4 +20,18 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
+
+// --------------------------- Admin routes ---------------------------
+require __DIR__ . '/admin.php';
+
+// --------------------------- User routes ---------------------------
+require __DIR__ . '/user.php';
+
+// --------------------------- Spatie test ---------------------------
+
+Route::get('dashboard_test', function () {
+    return view('panel.dashboard.admin');
+});
+
+Route::get('livewire_test', \App\Livewire\LivewireTest::class);
