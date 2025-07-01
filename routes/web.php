@@ -22,15 +22,16 @@ Route::middleware('auth')->group(function () {
 
 require __DIR__ . '/auth.php';
 
+// --------------------------- Admin routes ---------------------------
+require __DIR__ . '/admin.php';
+
+// --------------------------- User routes ---------------------------
+require __DIR__ . '/user.php';
 
 // --------------------------- Spatie test ---------------------------
 
-//Route::get('/test', function () {
-//    $role = Role::create(['name' => 'user']);
-//    \App\Models\User::find(2)->assignRole('user');
-//    return \App\Models\User::find(1)->hasRole('admin');
-//});
-
 Route::get('dashboard_test', function () {
-    return view('layouts.dashboard.main');
+    return view('panel.dashboard.admin');
 });
+
+Route::get('livewire_test', \App\Livewire\LivewireTest::class);
