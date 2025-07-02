@@ -17,7 +17,7 @@
         rel="stylesheet">
 
     <!-- Custom styles for this template-->
-    <link href="{{ asset('css/sb-admin-2.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/sb-admin-2.css') }}" rel="stylesheet">
     <script src="//unpkg.com/alpinejs" defer></script>
 
     <link rel="stylesheet" href="{{ asset('modified/alert.css') }}">
@@ -36,11 +36,11 @@
         style="background-color: #1E1E1E !important;">
 
         <!-- Sidebar - Brand -->
-        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
-            <div class="sidebar-brand-icon rotate-n-15">
-                {{--                <i class="fas fa-laugh-wink"></i>--}}
+        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="#!">
+            <div class="sidebar-brand-icon">
+                                <i class="fas fa-file-alt"></i>
             </div>
-            <div class="sidebar-brand-text mx-3">
+            <div class="sidebar-brand-text mx-3" style="font-size: 25px">
                 Editable
             </div>
         </a>
