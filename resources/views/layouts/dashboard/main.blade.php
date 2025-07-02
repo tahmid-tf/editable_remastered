@@ -18,6 +18,10 @@
 
     <!-- Custom styles for this template-->
     <link href="{{ asset('css/sb-admin-2.min.css') }}" rel="stylesheet">
+    <script src="//unpkg.com/alpinejs" defer></script>
+
+    <link rel="stylesheet" href="{{ asset('modified/alert.css') }}">
+
 
     @livewireStyles
 </head>
@@ -72,7 +76,7 @@
     <div id="content-wrapper" class="d-flex flex-column">
 
         <!-- Main Content -->
-        <div id="content">
+        <div id="content" style="background-color: white !important;">
 
             <!-- Topbar -->
             <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
