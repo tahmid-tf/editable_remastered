@@ -80,7 +80,7 @@
                     required
                     autocomplete=""
                 >
-                @error('password')
+                @error('old_password')
                 <div style="color: red; font-size: 13px;">{{ $message }}</div>
                 @enderror
 
@@ -94,14 +94,13 @@
                     required
                     autocomplete=""
                 >
-                @error('password')
+                @error('new_password')
                 <div style="color: red; font-size: 13px;">{{ $message }}</div>
                 @enderror
 
                 <!-- Confirm Password -->
 
                 <label for="" class="label_data">Retype Password</label>
-
 
                 <input
                     id="password_confirmation"
@@ -111,16 +110,13 @@
                     required
                     autocomplete=""
                 >
-                @error('password_confirmation')
+                @error('retype_password')
                 <div style="color: red; font-size: 13px;">{{ $message }}</div>
                 @enderror
 
-
-
                 <!-- Register Button -->
                 <button type="submit">Save Changes</button>
-
-
+                
             </form>
         </div>
     </div>

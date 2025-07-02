@@ -7,8 +7,6 @@ use Livewire\Component;
 class Settings extends Component
 {
 
-    public string $successMessage = '';
-
     public function testData()
     {
         session()->flash("success","Data has been saved");
