@@ -1,23 +1,27 @@
 <style>
-    .font-bold{
+    .font-bold {
         font-weight: bold;
     }
 </style>
 
-<!-- Nav Item - Charts -->
-<li class="nav-item">
-    <a class="nav-link" href="charts.html">
-        <i class="fas fa-fw fa-folder"></i>
-        <span class="font-bold">Order</span>
-    </a>
-</li>
-
-<!-- Nav Item - Tables -->
-<li class="nav-item">
-    <a class="nav-link" href="{{ route('user.settings') }}" wire:navigate>
-        <i class="fas fa-fw fa-folder"></i>
-        <span class="font-bold">General Settings</span></a>
-</li>
-
 <!-- Divider -->
 {{--        <hr class="sidebar-divider d-none d-md-block">--}}
+
+{{-- -------------------------------------- User Routes -------------------------------------- --}}
+
+@if(auth()->user()->hasRole('user'))
+    <li class="nav-item">
+        <a class="nav-link" href="#!">
+            <i class="fas fa-box"></i>
+            <span class="font-bold">Order</span>
+        </a>
+    </li>
+
+    <li class="nav-item">
+        <a class="nav-link" href="{{ route('user.settings') }}" wire:navigate>
+            <i class="fas fa-cog"></i>
+            <span class="font-bold">General Settings</span></a>
+    </li>
+@endif
+
+{{-- -------------------------------------- User Routes -------------------------------------- --}}

@@ -3,15 +3,14 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use Spatie\Permission\Models\Role;
+use App\Http\Controllers\DashboardController;
 
 Route::get('/', function () {
-    return view('auth.login');
+    return redirect()->route('login');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
-
+Route::get('/dashboard', [DashboardController::class, 'dashboard'])->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('log_out', [DashboardController::class, 'logout'])->middleware(['auth', 'verified'])->name('log_out');
 // ---------------------------------- Auth Routes ----------------------------------
 
 Route::middleware('auth')->group(function () {

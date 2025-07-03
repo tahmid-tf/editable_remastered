@@ -79,6 +79,7 @@
                     placeholder=""
                     autocomplete=""
                     wire:model="old_password"
+                    required
                 >
                 @error('old_password')
                 <div style="color: red; font-size: 13px; text-align: left">{{ $message }}</div>
