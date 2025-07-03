@@ -16,7 +16,7 @@ class DashboardController extends Controller
     public function dashboard()
     {
         if (auth()->user()->hasRole('admin')) {
-
+            return redirect()->route('editors');
         }
 
         if (auth()->user()->hasRole('user')) {

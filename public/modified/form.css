@@ -4,20 +4,41 @@
 /*    background-size: cover;*/
 /*}*/
 
+.h5_text_size {
+    font-weight: bold;
+    text-align: left;
+    padding-top: 2rem;
+    padding-bottom: 1.5rem;
+    margin-left: 10px;
+    font-size: 25px
+}
 
-input{
+.box_button {
+    width: 100%;
+    padding: 12px;
+    background-color: #000000;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    margin-top: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+input {
     height: 38px !important;
     border-radius: 5px !important;
 }
 
-.login-box h5{
+.login-box h5 {
     font-weight: bold;
     text-align: left;
     padding-top: 2rem;
     padding-bottom: 4rem;
 }
 
-.label_data{
+.label_data {
     color: #1a202c;
     font-weight: bold;
     display: block;

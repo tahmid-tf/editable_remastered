@@ -3,6 +3,15 @@
 /*    margin: 40px;*/
 /*}*/
 
+.input_table {
+    width: 100%;
+    padding: 12px 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 15px;
+}
+
 .right-padding{
     margin-left: 10px
 }
