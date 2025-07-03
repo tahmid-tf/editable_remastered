@@ -25,3 +25,17 @@
 @endif
 
 {{-- -------------------------------------- User Routes -------------------------------------- --}}
+
+{{-- -------------------------------------- Admin Routes -------------------------------------- --}}
+
+@if(auth()->user()->hasRole('admin'))
+    <li class="nav-item">
+        <a class="nav-link" href="{{ route('editors') }}" wire:navigate>
+            <i class="fas fa-user-edit"></i>
+            <span class="font-bold">Editors</span>
+        </a>
+    </li>
+@endif
+
+
+{{-- -------------------------------------- Admin Routes -------------------------------------- --}}
