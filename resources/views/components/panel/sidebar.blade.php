@@ -1,6 +1,7 @@
 <style>
     .font-bold {
         font-weight: bold;
+        font-size: 17px !important;
     }
 </style>
 
