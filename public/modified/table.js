@@ -77,7 +77,8 @@ function sortTable(colIndex) {
     if (th.dataset.sorted === "asc") {
         sortedRows.reverse();
         th.dataset.sorted = "desc";
-    } else {
+    }
+    else {
         th.dataset.sorted = "asc";
     }
 

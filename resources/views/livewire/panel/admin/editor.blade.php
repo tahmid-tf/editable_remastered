@@ -7,9 +7,9 @@
             Editors</h5>
     </div>
 
-    <div class="d-flex justify-content-between" style="margin: 0px 10px; padding-bottom: 2rem">
+    <div class="d-flex justify-content-between" style="margin: 0 10px; padding-bottom: 2rem">
         <div>
-            <input type="text" placeholder="Search" class="input_table">
+            <input type="text" placeholder="Search" class="input_table" wire:model.live="search">
         </div>
         <div>
             <button class="box_button" wire:click="createEditorModalVisibility(true)">
@@ -26,12 +26,13 @@
         <table id="myTable">
             <thead>
             <tr>
+                <th data-type="number">Serial <span class="icon">⇅</span></th>
                 <th data-type="string">Name <span class="icon">⇅</span></th>
                 <th data-type="number">
-                    Orders Completed <span class="icon">⇅</span>
+                    Orders Completed
                 </th>
                 <th data-type="number">
-                    Orders Pending <span class="icon">⇅</span>
+                    Orders Pending
                 </th>
             </tr>
             </thead>
@@ -40,12 +41,14 @@
             @foreach($editors as $editor)
 
                 <tr wire:key="{{ $editor->id }}">
+                    <td>{{ $loop->iteration }}</td>
                     <td>{{ $editor->name }}</td>
                     <td>0</td>
-                    <td>0</td>
+                    <td>1</td>
                     <td>
-                        <i class="fas fa-trash-alt"></i>
-                        <i class="fas fa-pen right-padding"></i>
+                        <i class="fas fa-trash-alt" style="cursor: pointer"
+                           wire:click.prevent="removeEditorModalVisibility(true, {{ $editor->id }})"></i>
+                        <i class="fas fa-pen right-padding" style="cursor: pointer"></i>
                     </td>
                 </tr>
 
@@ -54,10 +57,9 @@
         </table>
     </div>
 
-    <div class="pagination" id="pagination"></div>
-
-
+    <div class="pagination" id="pagination" wire:ignore></div>
     <script src="{{ asset('modified/table.js') }}"></script>
+
 
 
     {{--    ------------------------------------------- Create Editor -------------------------------------------  --}}
@@ -112,5 +114,43 @@
             </div>
         </div>
     @endif
+
+
+    {{--  ------------------------------ remove editor ------------------------------ --}}
+
+    @if($remove_editor_modal)
+
+        <div class="h-full bg-gray-100">
+            <!-- Backdrop overlay with blur -->
+            <div class="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center">
+                <!-- Modal box -->
+                <div class="relative bg-white p-6 rounded-lg shadow-xl w-full max-w-sm">
+                    <!-- Cross button -->
+                    <button wire:click.prevent="removeEditorModalVisibility(false,null)"
+                            type="button"
+                            class="absolute top-4 right-4 text-gray-600 hover:text-black focus:outline-none"
+                            aria-label="Close"
+                    >
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
+                        </svg>
+                    </button>
+
+                    <h2 class="text-lg font-semibold mb-4 text-red-600">Remove Editor</h2>
+                    <p class="text-sm text-gray-700 mb-6">
+                        Are you sure you want to remove the editor? This action cannot be undone.
+                    </p>
+                    <button wire:click.prevent="removeEditor"
+                            class="w-full bg-red-600 text-white py-2 rounded hover:bg-red-700">
+                        Remove Editor
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    @endif
+
+
+
 
 </div>
