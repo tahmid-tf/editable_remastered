@@ -30,8 +30,3 @@ require __DIR__ . '/user.php';
 
 // --------------------------- Spatie test ---------------------------
 
-Route::get('dashboard_test', function () {
-    return view('panel.dashboard.admin');
-});
-
-Route::get('livewire_test', \App\Livewire\LivewireTest::class);

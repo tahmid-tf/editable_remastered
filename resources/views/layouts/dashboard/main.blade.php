@@ -38,7 +38,7 @@
         <!-- Sidebar - Brand -->
         <a class="sidebar-brand d-flex align-items-center justify-content-center" href="#!">
             <div class="sidebar-brand-icon">
-                                <i class="fas fa-file-alt"></i>
+                <i class="fas fa-file-alt"></i>
             </div>
             <div class="sidebar-brand-text mx-3" style="font-size: 25px">
                 Editable

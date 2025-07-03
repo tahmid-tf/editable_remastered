@@ -14,7 +14,7 @@
         <div class="login-box">
             <h5>General Settings</h5>
 
-            <form method="POST" wire:submit.prevent="testData">
+            <form method="POST" wire:submit.prevent="submitData">
                 @csrf
 
                 <label for="" class="label_data">Name</label>
@@ -25,13 +25,13 @@
                     type="text"
                     name="name"
                     placeholder=""
-                    value="{{ old('name', auth()->user()->name) }}"
                     required
                     autofocus
                     autocomplete="name"
+                    wire:model="name"
                 >
                 @error('name')
-                <div style="color: red; font-size: 13px;">{{ $message }}</div>
+                <div style="color: red; font-size: 13px; text-align: left">{{ $message }}</div>
                 @enderror
 
 
@@ -39,32 +39,32 @@
                 <label for="" class="label_data">Contact Number</label>
 
                 <input
-                    id="email"
+                    id=""
                     type="text"
                     name="phone"
                     placeholder=""
-                    value="{{ old('phone', auth()->user()->phone) }}"
                     required
                     autocomplete="phone"
+                    wire:model="phone"
                 >
                 @error('email')
-                <div style="color: red; font-size: 13px;">{{ $message }}</div>
+                <div style="color: red; font-size: 13px; text-align: left">{{ $message }}</div>
                 @enderror
 
                 <!-- Email Address -->
                 <label for="" class="label_data">Email</label>
 
                 <input
-                    id="email"
+                    id=""
                     type="email"
                     name="email"
                     placeholder=""
-                    value="{{ old('email', auth()->user()->email) }}"
                     required
                     autocomplete="email"
+                    wire:model="email"
                 >
                 @error('email')
-                <div style="color: red; font-size: 13px;">{{ $message }}</div>
+                <div style="color: red; font-size: 13px; text-align: left">{{ $message }}</div>
                 @enderror
 
 
@@ -77,11 +77,11 @@
                     type="password"
                     name="old_password"
                     placeholder=""
-                    required
                     autocomplete=""
+                    wire:model="old_password"
                 >
                 @error('old_password')
-                <div style="color: red; font-size: 13px;">{{ $message }}</div>
+                <div style="color: red; font-size: 13px; text-align: left">{{ $message }}</div>
                 @enderror
 
                 <label for="" class="label_data">Enter New Password</label>
@@ -93,9 +93,10 @@
                     placeholder=""
                     required
                     autocomplete=""
+                    wire:model="new_password"
                 >
                 @error('new_password')
-                <div style="color: red; font-size: 13px;">{{ $message }}</div>
+                <div style="color: red; font-size: 13px; text-align: left">{{ $message }}</div>
                 @enderror
 
                 <!-- Confirm Password -->
@@ -109,14 +110,16 @@
                     placeholder=""
                     required
                     autocomplete=""
+                    wire:model="retype_password"
                 >
+
                 @error('retype_password')
-                <div style="color: red; font-size: 13px;">{{ $message }}</div>
+                <div style="color: red; font-size: 13px; text-align: left">{{ $message }}</div>
                 @enderror
 
                 <!-- Register Button -->
                 <button type="submit">Save Changes</button>
-                
+
             </form>
         </div>
     </div>
