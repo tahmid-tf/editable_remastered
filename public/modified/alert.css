@@ -1,0 +1,52 @@
+.alert_div{
+    display: flex;
+    justify-content: center;
+}
+
+/*-- -------------------- Alert Success -------------------- */
+
+.alert-success {
+    position: fixed;
+    display: inline-flex;
+    align-items: center;
+    background-color: #e6f4ea; /* light green background */
+    color: #027A48; /* dark green text */
+    padding: 3px 10px 3px 5px;
+    border-radius: 9999px; /* fully rounded corners */
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.badge-success {
+    background-color: #307373; /* dark green badge */
+    color: #ffffff;
+    padding: 5px 9px;
+    border-radius: 9999px;
+    font-size: 12px;
+    margin-right: 8px;
+}
+
+/*-- -------------------- Alert Danger -------------------- */
+
+.alert-danger {
+    position: fixed;
+    display: inline-flex;
+    align-items: center;
+    background-color: #e6f4ea; /* light green background */
+    color: #B42318; /* dark green text */
+    padding: 3px 10px 3px 5px;
+    border-radius: 9999px; /* fully rounded corners */
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.badge-danger {
+    background-color: #D92D20; /* dark green badge */
+    color: #ffffff;
+    padding: 5px 9px;
+    border-radius: 9999px;
+    font-size: 12px;
+    margin-right: 8px;
+}

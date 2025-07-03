@@ -17,7 +17,15 @@
         rel="stylesheet">
 
     <!-- Custom styles for this template-->
-    <link href="{{ asset('css/sb-admin-2.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/sb-admin-2.css') }}" rel="stylesheet">
+    <script src="//unpkg.com/alpinejs" defer></script>
+
+    <link rel="stylesheet" href="{{ asset('modified/alert.css') }}">
+
+    {{-- ------------------------ tailwind css ------------------------ --}}
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
 
     @livewireStyles
 </head>
@@ -32,11 +40,11 @@
         style="background-color: #1E1E1E !important;">
 
         <!-- Sidebar - Brand -->
-        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
-            <div class="sidebar-brand-icon rotate-n-15">
-                {{--                <i class="fas fa-laugh-wink"></i>--}}
+        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="#!">
+            <div class="sidebar-brand-icon">
+                <i class="fas fa-file-alt"></i>
             </div>
-            <div class="sidebar-brand-text mx-3">
+            <div class="sidebar-brand-text mx-3" style="font-size: 25px">
                 Editable
             </div>
         </a>
@@ -72,7 +80,7 @@
     <div id="content-wrapper" class="d-flex flex-column">
 
         <!-- Main Content -->
-        <div id="content">
+        <div id="content" style="background-color: white !important;">
 
             <!-- Topbar -->
             <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
@@ -110,7 +118,8 @@
                     <li class="nav-item dropdown no-arrow">
                         <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <span class="mr-2 d-none d-lg-inline text-gray-600 small">Douglas McGee</span>
+                            <span
+                                class="mr-2 d-none d-lg-inline text-gray-600 small">{{ auth()->user()->name ?? '' }}</span>
                             <img class="img-profile rounded-circle"
                                  src="{{ asset('img/undraw_profile.svg') }}">
                         </a>
@@ -194,7 +203,7 @@
             <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
             <div class="modal-footer">
                 <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                <a class="btn btn-primary" href="login.html">Logout</a>
+                <a class="btn btn-primary" href="{{ route('log_out') }}">Logout</a>
             </div>
         </div>
     </div>

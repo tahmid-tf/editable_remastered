@@ -1,16 +1,41 @@
-<!-- Nav Item - Charts -->
-<li class="nav-item">
-    <a class="nav-link" href="charts.html">
-{{--        <i class="fas fa-fw fa-chart-area"></i>--}}
-        <span>Charts</span></a>
-</li>
-
-<!-- Nav Item - Tables -->
-<li class="nav-item">
-    <a class="nav-link" href="tables.html">
-{{--        <i class="fas fa-fw fa-table"></i>--}}
-        <span>Tables</span></a>
-</li>
+<style>
+    .font-bold {
+        font-weight: bold;
+    }
+</style>
 
 <!-- Divider -->
 {{--        <hr class="sidebar-divider d-none d-md-block">--}}
+
+{{-- -------------------------------------- User Routes -------------------------------------- --}}
+
+@if(auth()->user()->hasRole('user'))
+    <li class="nav-item">
+        <a class="nav-link" href="#!">
+            <i class="fas fa-box"></i>
+            <span class="font-bold">Order</span>
+        </a>
+    </li>
+
+    <li class="nav-item">
+        <a class="nav-link" href="{{ route('user.settings') }}" wire:navigate>
+            <i class="fas fa-cog"></i>
+            <span class="font-bold">General Settings</span></a>
+    </li>
+@endif
+
+{{-- -------------------------------------- User Routes -------------------------------------- --}}
+
+{{-- -------------------------------------- Admin Routes -------------------------------------- --}}
+
+@if(auth()->user()->hasRole('admin'))
+    <li class="nav-item">
+        <a class="nav-link" href="{{ route('editors') }}" wire:navigate>
+            <i class="fas fa-user-edit"></i>
+            <span class="font-bold">Editors</span>
+        </a>
+    </li>
+@endif
+
+
+{{-- -------------------------------------- Admin Routes -------------------------------------- --}}

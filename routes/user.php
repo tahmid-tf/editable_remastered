@@ -1,10 +1,12 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Livewire\Panel\User\Settings\Settings;
 
-Route::middleware(['auth'])->prefix('user')->group(function () {
+Route::middleware(['auth', 'user'])->prefix('user')->group(function () {
 
-    // ----------------------- Profile modification -----------------------
+    // ----------------------- General Settings -----------------------
 
+    Route::get('settings', Settings::class)->name('user.settings');
 
 });
