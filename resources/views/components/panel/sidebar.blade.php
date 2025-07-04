@@ -36,6 +36,13 @@
             <span class="font-bold">Editors</span>
         </a>
     </li>
+
+    <li class="nav-item">
+        <a class="nav-link" href="" wire:navigate>
+            <i class="fas fa-tags"></i>
+            <span class="font-bold">Categories</span>
+        </a>
+    </li>
 @endif
 
 
