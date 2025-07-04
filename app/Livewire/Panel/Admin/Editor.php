@@ -3,49 +3,55 @@
 namespace App\Livewire\Panel\Admin;
 
 use Livewire\Component;
+use Livewire\WithPagination;
 
 class Editor extends Component
 {
+    use WithPagination;
+
+    public $search = '';
+    public $perPage = 5;
+    public $sortField = 'name';
+    public $sortDirection = 'asc';
+
+    public $create_editor_modal = false;
+    public $update_editor_modal = false;
+    public $remove_editor_modal = false;
 
     public $name;
-    public $create_editor_modal = false;
-    public $remove_editor_modal = false;
+    public $update_editor_id = null;
     public $remove_editor_id = null;
 
-    // ----------- update editor block
+    protected $paginationTheme = 'bootstrap'; // or 'tailwind' if you prefer
 
-    public $update_editor_modal = false;
-    public $update_editor_id = null;
-
-    public $search;
-
-    public $editors;
-
-    public function mount()
+    public function updatingSearch()
     {
-        $this->editors = \App\Models\Editor::latest();
+        $this->resetPage();
     }
 
-    public function refreshEditors()
+    public function updatingPerPage()
     {
-        $this->editors = \App\Models\Editor::latest();
+        $this->resetPage();
     }
 
-
-//    ---------- create editor modal and method
+    public function sortBy($field)
+    {
+        if ($this->sortField === $field) {
+            $this->sortDirection = $this->sortDirection === 'asc' ? 'desc' : 'asc';
+        } else {
+            $this->sortField = $field;
+            $this->sortDirection = 'asc';
+        }
+    }
 
     public function createEditorModalVisibility($input)
     {
-        if (!is_bool($input)) {
-            throw new \InvalidArgumentException("Modal visibility must be a boolean.");
-        }
-
         $this->create_editor_modal = $input;
     }
 
     public function createEditor()
     {
-        $inputs = $this->validate([
+        $this->validate([
             'name' => 'required|unique:editors,name',
         ]);
 
@@ -54,48 +60,34 @@ class Editor extends Component
         ]);
 
         $this->create_editor_modal = false;
-        $this->refreshEditors();
+        $this->name = null;
     }
-
-
-//    ---------- update editor modal and method
 
     public function updateEditorModalVisibility($input, $id)
     {
-        $this->resetValidation(); // ← clear previous errors
-
-        if (!is_bool($input)) {
-            throw new \InvalidArgumentException("Modal visibility must be a boolean.");
-        }
-
-        $this->name = \App\Models\Editor::find($id)->name ?? null;
+        $this->resetValidation();
 
         $this->update_editor_modal = $input;
         $this->update_editor_id = $id;
+        $this->name = \App\Models\Editor::find($id)?->name ?? '';
     }
 
-    public function updateEditor(){
-
-        $inputs = $this->validate([
+    public function updateEditor()
+    {
+        $this->validate([
             'name' => 'required|unique:editors,name,' . $this->update_editor_id,
         ]);
 
-        \App\Models\Editor::find($this->update_editor_id)->update([
+        \App\Models\Editor::find($this->update_editor_id)?->update([
             'name' => $this->name,
         ]);
 
         $this->update_editor_modal = false;
-        $this->refreshEditors();
+        $this->name = null;
     }
-
-
-//    ---------- remove editor method ----------
 
     public function removeEditorModalVisibility($input, $id)
     {
-        if (!is_bool($input)) {
-            throw new \InvalidArgumentException("Modal visibility must be a boolean.");
-        }
         $this->remove_editor_modal = $input;
         $this->remove_editor_id = $id;
     }
@@ -103,22 +95,19 @@ class Editor extends Component
     public function removeEditor()
     {
         \App\Models\Editor::destroy($this->remove_editor_id);
+
         $this->remove_editor_modal = false;
-        $this->refreshEditors();
     }
-
-
-//    -------------- render with live search --------------
 
     public function render()
     {
-        $this->editors = \App\Models\Editor::query()
-            ->when($this->search, function ($query) {
-                $query->where('name', 'like', '%' . $this->search . '%');
-            })
-            ->orderBy('Id','desc')->get();
+        $editors = \App\Models\Editor::query()
+            ->when($this->search, fn ($q) => $q->where('name', 'like', "%{$this->search}%"))
+            ->orderBy($this->sortField, $this->sortDirection)
+            ->paginate($this->perPage);
 
-        return view('livewire.panel.admin.editor')->layout('layouts.dashboard.main');
+        return view('livewire.panel.admin.editor', [
+            'editors' => $editors,
+        ])->layout('layouts.dashboard.main');
     }
-
 }

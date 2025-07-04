@@ -22,45 +22,50 @@
     {{-- ------------------------------------------------- Table Code -------------------------------------------------  --}}
 
     <div class="table-container">
-
         <table id="myTable">
             <thead>
             <tr>
-                <th data-type="number">Serial <span class="icon">⇅</span></th>
-                <th data-type="string">Name <span class="icon">⇅</span></th>
-                <th data-type="number">
+                <th wire:click="sortBy('name')" style="cursor: pointer;">
+                    Name
+                    <span class="icon">⇅</span>
+                </th>
+                <th wire:click="sortBy('orders_completed')" style="cursor: pointer;">
                     Orders Completed
+                    <span class="icon">⇅</span>
                 </th>
-                <th data-type="number">
+                <th wire:click="sortBy('orders_pending')" style="cursor: pointer;">
                     Orders Pending
+                    <span class="icon">⇅</span>
                 </th>
+                <th>Actions</th>
             </tr>
             </thead>
-            <tbody id="tableBody">
-
-            @foreach($editors as $editor)
-
+            <tbody>
+            @forelse($editors as $editor)
                 <tr wire:key="{{ $editor->id }}">
-                    <td>{{ $loop->iteration }}</td>
                     <td>{{ $editor->name }}</td>
                     <td>0</td>
                     <td>1</td>
                     <td>
-                        <i class="fas fa-trash-alt" style="cursor: pointer"
-                           wire:click.prevent="removeEditorModalVisibility(true, {{ $editor->id }})"></i>
                         <i class="fas fa-pen right-padding" style="cursor: pointer"
-                           wire:click.prevent="updateEditorModalVisibility(true, {{ $editor->id }})"
-                        ></i>
+                           wire:click="updateEditorModalVisibility(true, {{ $editor->id }})"></i>
+                        <i class="fas fa-trash-alt" style="cursor: pointer"
+                           wire:click="removeEditorModalVisibility(true, {{ $editor->id }})"></i>
                     </td>
                 </tr>
-
-            @endforeach
+            @empty
+                <tr>
+                    <td colspan="4">No editors found.</td>
+                </tr>
+            @endforelse
             </tbody>
         </table>
     </div>
 
-    <div class="pagination" id="pagination" wire:ignore></div>
-    <script src="{{ asset('modified/table.js') }}"></script>
+
+    <div>
+        {{ $editors->links('vendor.pagination.custom') }}
+    </div>
 
 
     {{--    ------------------------------------------- Create Editor -------------------------------------------  --}}

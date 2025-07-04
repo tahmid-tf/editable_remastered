@@ -38,7 +38,7 @@
     </li>
 
     <li class="nav-item">
-        <a class="nav-link" href="" wire:navigate>
+        <a class="nav-link" href="{{ route('categories') }}" wire:navigate>
             <i class="fas fa-tags"></i>
             <span class="font-bold">Categories</span>
         </a>
