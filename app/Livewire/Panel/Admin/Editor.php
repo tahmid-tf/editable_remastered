@@ -12,6 +12,11 @@ class Editor extends Component
     public $remove_editor_modal = false;
     public $remove_editor_id = null;
 
+    // ----------- update editor block
+
+    public $update_editor_modal = false;
+    public $update_editor_id = null;
+
     public $search;
 
     public $editors;
@@ -51,6 +56,38 @@ class Editor extends Component
         $this->create_editor_modal = false;
         $this->refreshEditors();
     }
+
+
+//    ---------- update editor modal and method
+
+    public function updateEditorModalVisibility($input, $id)
+    {
+        $this->resetValidation(); // ← clear previous errors
+
+        if (!is_bool($input)) {
+            throw new \InvalidArgumentException("Modal visibility must be a boolean.");
+        }
+
+        $this->name = \App\Models\Editor::find($id)->name ?? null;
+
+        $this->update_editor_modal = $input;
+        $this->update_editor_id = $id;
+    }
+
+    public function updateEditor(){
+
+        $inputs = $this->validate([
+            'name' => 'required|unique:editors,name,' . $this->update_editor_id,
+        ]);
+
+        \App\Models\Editor::find($this->update_editor_id)->update([
+            'name' => $this->name,
+        ]);
+
+        $this->update_editor_modal = false;
+        $this->refreshEditors();
+    }
+
 
 //    ---------- remove editor method ----------
 
