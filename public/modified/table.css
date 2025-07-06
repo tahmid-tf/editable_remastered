@@ -30,7 +30,7 @@ table {
 }
 
 thead {
-    background: #f9f9f9;
+    /*background: #f9f9f9;*/
 }
 
 th,
@@ -47,11 +47,11 @@ th {
 }
 
 tr:nth-child(even) {
-    background: #fafafa;
+    /*background: #fafafa;*/
 }
 
 tr:hover {
-    background: #f1f1f1;
+    /*background: #f1f1f1;*/
 }
 
 .pagination {
@@ -76,7 +76,7 @@ tr:hover {
 }
 
 .pagination button:hover {
-    background: #eee;
+    background: gray;
 }
 
 .pagination select {
@@ -89,9 +89,6 @@ tr:hover {
 }
 
 @media (max-width: 768px) {
-    /*body {*/
-    /*    margin: 20px;*/
-    /*}*/
 
     th,
     td {
