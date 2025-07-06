@@ -46,7 +46,7 @@
 
     <li class="nav-item">
         <a class="nav-link" href="{{ route('styles') }}">
-            <i class="fas fa-tags"></i>
+            <i class="fas fa-paint-brush"></i>
             <span class="font-bold">Styles</span>
         </a>
     </li>

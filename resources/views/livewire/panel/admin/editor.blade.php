@@ -25,9 +25,11 @@
         <table id="myTable">
             <thead>
             <tr>
-                <th wire:click="sortBy('name')" style="cursor: pointer;">
-                    Name
+                <th wire:click="sortBy('name')" wire:click="sortBy('name')">#
                     <span class="icon">⇅</span>
+                </th>
+                <th>
+                    Name
                 </th>
                 <th wire:click="sortBy('orders_completed')" style="cursor: pointer;">
                     Orders Completed
@@ -43,6 +45,7 @@
             <tbody>
             @forelse($editors as $editor)
                 <tr wire:key="{{ $editor->id }}">
+                    <td>{{ $loop->iteration }}</td>
                     <td>{{ $editor->name }}</td>
                     <td>0</td>
                     <td>1</td>

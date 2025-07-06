@@ -63,8 +63,6 @@
                     </label>
                 </div>
 
-
-
                 <!-- Options -->
                 <label class="block text-sm mb-2" style="color: black">Available Options</label>
                 <div class="flex flex-wrap gap-4 mb-4" style="color: black">
