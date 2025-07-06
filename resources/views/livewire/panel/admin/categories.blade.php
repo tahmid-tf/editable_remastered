@@ -23,21 +23,21 @@
         <table id="myTable">
             <thead>
             <tr>
-                <th data-type="number"># <span class="icon">⇅</span></th>
-                <th data-type="string">Name <span class="icon">⇅</span></th>
-                <th data-type="number">Style Price</th>
-                <th data-type="number">Style Threshold</th>
-                <th data-type="number">Culling Price</th>
-                <th data-type="number">Culling Threshold</th>
-                <th data-type="number">Skin Retouch Price</th>
-                <th data-type="number">Skin Retouch Threshold</th>
-                <th data-type="number">Preview Edit Price</th>
-                <th data-type="number">Preview Edit Threshold</th>
+                <th wire:click="sortBy('id')" style="cursor: pointer;"># <span class="icon">⇅</span></th>
+                <th >Name</th>
+                <th>Style Price</th>
+                <th>Style Threshold</th>
+                <th>Culling Price</th>
+                <th >Culling Threshold</th>
+                <th >Skin Retouch Price</th>
+                <th >Skin Retouch Threshold</th>
+                <th >Preview Edit Price</th>
+                <th >Preview Edit Threshold</th>
                 <th>Actions</th>
             </tr>
             </thead>
-            <tbody id="tableBody">
-            @foreach($categories as $category)
+            <tbody>
+            @forelse($categories as $category)
                 <tr wire:key="{{ $category->id }}">
                     <td>{{ $loop->iteration }}</td>
                     <td>{{ $category->name }}</td>
@@ -50,18 +50,26 @@
                     <td>{{ $category->preview_edit_price }}</td>
                     <td>{{ $category->preview_edit_threshold }}</td>
                     <td>
-                        <i class="fas fa-trash-alt" style="cursor: pointer"
-                           wire:click.prevent="removeCategoryModalVisibility(true, {{ $category->id }})"></i>
-                        <i class="fas fa-pen right-padding" style="cursor: pointer"
-                           wire:click.prevent="updateCategoryModalVisibility(true, {{ $category->id }})"></i>
+                        <i class="fas fa-pen" style="cursor: pointer"
+                           wire:click="updateCategoryModalVisibility(true, {{ $category->id }})"></i>
+                        <i class="fas fa-trash-alt" style="cursor: pointer; margin-left: 15px"
+                           wire:click="removeCategoryModalVisibility(true, {{ $category->id }})"></i>
                     </td>
                 </tr>
-            @endforeach
+            @empty
+                <tr>
+                    <td colspan="11">No categories found.</td>
+                </tr>
+            @endforelse
             </tbody>
         </table>
     </div>
 
-    <div class="pagination" id="pagination"></div>
+    <div>
+        {{ $categories->links('vendor.pagination.custom') }}
+    </div>
+
+
 {{--    <script src="{{ asset('modified/table.js') }}"></script>--}}
 
     {{-- ===========================

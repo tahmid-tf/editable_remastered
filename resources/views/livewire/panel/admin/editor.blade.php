@@ -47,9 +47,9 @@
                     <td>0</td>
                     <td>1</td>
                     <td>
-                        <i class="fas fa-pen right-padding" style="cursor: pointer"
+                        <i class="fas fa-pen" style="cursor: pointer"
                            wire:click="updateEditorModalVisibility(true, {{ $editor->id }})"></i>
-                        <i class="fas fa-trash-alt" style="cursor: pointer"
+                        <i class="fas fa-trash-alt" style="cursor: pointer; margin-left: 15px"
                            wire:click="removeEditorModalVisibility(true, {{ $editor->id }})"></i>
                     </td>
                 </tr>
