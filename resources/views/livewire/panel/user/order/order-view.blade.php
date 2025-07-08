@@ -27,26 +27,42 @@
                 <th>#<span class="icon">⇅</span>
                 </th>
                 <th>
-                    Name
+                    Order Name
                 </th>
-                <th style="cursor: pointer;">
-                    Orders Completed
-                    <span class="icon">⇅</span>
-                </th>
-                <th>
-                    Orders Pending
-                    <span class="icon">⇅</span>
-                </th>
+                {{--  ------------- extra ------------- --}}
+
+                <th>Date</th>
+                <th>ID</th>
+                <th>Expected Delivery</th>
+                <th>My Drive Link</th>
+                <th>Preview</th>
+                <th>Status</th>
+                <th>Price</th>
+                <th>Download</th>
+
+                {{--  ------------- extra ------------- --}}
                 <th>Actions</th>
             </tr>
             </thead>
             <tbody>
 
             <tr>
-                <td>1</td>
-                <td>1</td>
-                <td>0</td>
-                <td>1</td>
+
+                {{--  ------------- extra ------------- --}}
+
+                <th>Serial</th>
+                <th>Order Name</th>
+                <th>Date</th>
+                <th>ID</th>
+                <th>Expected Delivery</th>
+                <th>My Drive Link</th>
+                <th>Preview</th>
+                <th>Status</th>
+                <th>Price</th>
+                <th>Download</th>
+
+                {{--  ------------- extra ------------- --}}
+
                 <td>
                     <i class="fas fa-pen" style="cursor: pointer"></i>
                     <i class="fas fa-trash-alt" style="cursor: pointer; margin-left: 15px"></i>

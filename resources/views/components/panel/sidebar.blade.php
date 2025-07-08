@@ -12,7 +12,7 @@
 
 @if(auth()->user()->hasRole('user'))
     <li class="nav-item">
-        <a class="nav-link" href="#!">
+        <a class="nav-link" href="{{ route('users.orders.data') }}">
             <i class="fas fa-box"></i>
             <span class="font-bold">Order</span>
         </a>
