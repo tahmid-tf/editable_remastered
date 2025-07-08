@@ -191,13 +191,16 @@
 
                     <h2 class="text-lg font-semibold mb-4" style="color: black">{{ $title ?? 'Express Delivery' }}</h2>
 
-                    <form>
+                    <form wire:submit.prevent="goToOrderCreationPage">
 
                         <label class="block text-sm mb-2" for="name" style="color: black">Order Name</label>
 
-                        @error('name')
-                        <div style="color: red; font-size: 13px;" class="pb-1">{{ $message }}</div>
-                        @enderror
+                        <input
+                            id="delivery_type"
+                            type="hidden"
+                            value="{{ $title }}"
+                            wire:model="order_title"
+                        />
 
                         <input
                             id="name"
@@ -206,23 +209,26 @@
                             placeholder="Enter Name"
                             class="w-full border border-gray-300 rounded px-3 py-2 mb-4 focus:outline-none focus:ring focus:border-blue-500"
                             style="color: black"
+                            wire:model="order_name"
                         />
 
                         <label class="block text-sm mb-2" for="name" style="color: black">Select Category</label>
 
-                        @error('name')
+                        @error('order_name')
                         <div style="color: red; font-size: 13px;" class="pb-1">{{ $message }}</div>
                         @enderror
 
                         <select
+                            wire:model="selectedCategoryId"
                             class="w-full border border-gray-300 rounded px-3 py-2 mb-4 focus:outline-none focus:ring focus:border-blue-500 text-black"
                             style="appearance: none; background-color: white; background-image: url('data:image/svg+xml;utf8,<svg fill=\'%23000\' height=\'24\' viewBox=\'0 0 24 24\' width=\'24\' xmlns=\'http://www.w3.org/2000/svg\'><path d=\'M7 10l5 5 5-5H7z\'/></svg>'); background-repeat: no-repeat; background-position: right 0.75rem center; background-size: 1rem;"
                         >
-                            <option disabled selected>Select Category</option>
-                            <option>Option 1</option>
-                            <option>Option 2</option>
-                            <option>Option 3</option>
+                            <option value="" disabled>Select Category</option>
+                            @foreach($categories as $category)
+                                <option value="{{ $category->id }}">{{ $category->name ?? '' }}</option>
+                            @endforeach
                         </select>
+
 
 
                         <button class="w-full bg-black text-white py-2 rounded hover:bg-gray-800">Create Editor</button>

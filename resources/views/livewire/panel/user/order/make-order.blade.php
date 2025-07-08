@@ -1,100 +1,40 @@
 <div class="container">
 
-
     <!-- Pick a style -->
     <h6 class="mb-3" style="font-weight: bold; text-align: left; padding-top: 1rem; font-size: 25px;">Pick a style</h6>
     <div class="row flex-column-reverse flex-lg-row">
         <!-- Cards -->
         <div class="col-lg-8">
             <div class="row g-3 mb-4">
-                <!-- Card 1 -->
-                <div class="col-sm-6 col-md-4 mt-2">
-                    <div class="card h-100">
-                        <div
-                            class="p-3"
-                            style="background-color: #f8f8f8; border-radius: 12px"
-                        >
-                            <div>
-                                <input type="radio"/>
-                            </div>
-                            <img
-                                src="https://dummyimage.com/svga"
-                                class="card-img-top"
-                                alt="Classic Film Tones"
-                            />
-                            <div class="card-body">
-                                <h6 class="card-title font-weight-bold text-black">Classic Film Tones</h6>
-                                <p class="small text-black">Description</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- Card 2 -->
-                <div class="col-sm-6 col-md-4 mt-2">
-                    <div class="card h-100">
-                        <div
-                            class="p-3"
-                            style="background-color: #f8f8f8; border-radius: 12px"
-                        >
-                            <div>
-                                <input type="radio"/>
-                            </div>
-                            <img
-                                src="https://dummyimage.com/svga"
-                                class="card-img-top"
-                                alt="Classic Film Tones"
-                            />
-                            <div class="card-body">
-                                <h6 class="card-title font-weight-bold text-black">Classic Film Tones</h6>
-                                <p class="small text-black">Description</p>
+
+
+                @foreach($styles as $style)
+
+                    <!-- Card 1 -->
+                    <div class="col-sm-6 col-md-4 mt-2">
+                        <div class="card h-100">
+                            <div
+                                class="p-3"
+                                style="background-color: #f8f8f8; border-radius: 12px"
+                            >
+                                <div>
+                                    <input type="radio" name="radio"/>
+                                </div>
+                                <img
+                                    src="{{ asset('storage/'.$style->image) }}"
+                                    class="card-img-top"
+                                    alt="Classic Film Tones"
+                                />
+                                <div class="card-body">
+                                    <h6 class="card-title font-weight-bold text-black">Classic Film Tones</h6>
+                                    <p class="small text-black">Description</p>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <!-- Card 3 -->
-                <div class="col-sm-6 col-md-4 mt-2">
-                    <div class="card h-100">
-                        <div
-                            class="p-3"
-                            style="background-color: #f8f8f8; border-radius: 12px"
-                        >
-                            <div>
-                                <input type="radio"/>
-                            </div>
-                            <img
-                                src="https://dummyimage.com/svga"
-                                class="card-img-top"
-                                alt="Classic Film Tones"
-                            />
-                            <div class="card-body">
-                                <h6 class="card-title font-weight-bold text-black">Classic Film Tones</h6>
-                                <p class="small text-black">Description</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- Card 4 -->
-                <div class="col-sm-6 col-md-4 mt-2">
-                    <div class="card h-100">
-                        <div
-                            class="p-3"
-                            style="background-color: #f8f8f8; border-radius: 12px"
-                        >
-                            <div>
-                                <input type="radio"/>
-                            </div>
-                            <img
-                                src="https://dummyimage.com/svga"
-                                class="card-img-top"
-                                alt="Classic Film Tones"
-                            />
-                            <div class="card-body">
-                                <h6 class="card-title font-weight-bold text-black">Classic Film Tones</h6>
-                                <p class="small text-black">Description</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+
+                @endforeach
+
             </div>
         </div>
 
@@ -136,28 +76,33 @@
         <!-- Cards -->
         <div class="col-lg-8">
             <div class="row g-3 mb-4">
-                <!-- Card 1 -->
-                <div class="col-sm-6 col-md-4">
-                    <div class="card h-100">
-                        <div
-                            class="p-3"
-                            style="background-color: #f8f8f8; border-radius: 12px"
-                        >
-                            <div>
-                                <input type="checkbox"/>
-                            </div>
-                            <img
-                                src="https://dummyimage.com/svga"
-                                class="card-img-top"
-                                alt="Classic Film Tones"
-                            />
-                            <div class="card-body">
-                                <h6 class="card-title font-weight-bold text-black">Classic Film Tones</h6>
-                                <p class="small text-black">Description</p>
+
+                @foreach($styles_additional as $style)
+
+                    <!-- Card 1 -->
+                    <div class="col-sm-6 col-md-4">
+                        <div class="card h-100">
+                            <div
+                                class="p-3"
+                                style="background-color: #f8f8f8; border-radius: 12px"
+                            >
+                                <div>
+                                    <input type="checkbox"/>
+                                </div>
+                                <img
+                                    src="{{ asset('storage/'.$style->image) }}"
+                                    class="card-img-top"
+                                    alt="Classic Film Tones"
+                                />
+                                <div class="card-body">
+                                    <h6 class="card-title font-weight-bold text-black">Classic Film Tones</h6>
+                                    <p class="small text-black">Description</p>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
+
+                @endforeach
             </div>
         </div>
     </div>
@@ -165,10 +110,12 @@
     <!-- Additional Edits -->
     <h6 class="mb-3 text-black">Additional Edits</h6>
 
-    <!-- Culling Section -->
+    <!-- ---------------------------- Culling Section ------------------------------------ -->
+
+
     <div class="mb-4" style="max-width: 300px">
         <label class="form-label small fw-bold text-black">
-            <input type="checkbox" id="cullingCheckbox"/> Culling
+            <input type="checkbox" id="cullingCheckbox" wire:model.live="cullingCheckbox"/> Culling
         </label>
 
         <div id="cullingOptions" style="display: none; margin-top: 10px">
@@ -232,7 +179,7 @@
     <button class="btn btn-dark btn-sm text-uppercase">Place Order</button>
 
     <!-- Script to control behavior -->
-    <script>
+    <script wire:ignore defer>
         function setupToggle(sectionCheckboxId, sectionOptionsId) {
             const checkbox = document.getElementById(sectionCheckboxId);
             const optionsDiv = document.getElementById(sectionOptionsId);

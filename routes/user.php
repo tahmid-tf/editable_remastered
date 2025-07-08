@@ -13,8 +13,6 @@ Route::middleware(['auth', 'user'])->prefix('user')->group(function () {
     // ----------------------- order page -----------------------
 
     Route::get('orders_data', \App\Livewire\Panel\User\Order\OrderView::class)->name('users.orders.data');
-
     Route::get('make_order', \App\Livewire\Panel\User\Order\MakeOrder::class)->name('users.orders.make');
-
 
 });
