@@ -1,12 +1,14 @@
 <div class="container">
 
+{{--    <p>{{ session('styles') }}</p>--}}
+    
+
     <!-- Pick a style -->
     <h6 class="mb-3" style="font-weight: bold; text-align: left; padding-top: 1rem; font-size: 25px;">Pick a style</h6>
     <div class="row flex-column-reverse flex-lg-row">
         <!-- Cards -->
         <div class="col-lg-8">
             <div class="row g-3 mb-4">
-
 
                 @foreach($styles as $style)
 
@@ -38,32 +40,45 @@
             </div>
         </div>
 
+
+
         <!-- Price Box -->
         <div class="col-lg-4 mt-2">
-            <div class="card p-3">
-                <div class="text-center mb-2">
-                    <div
-                        class="rounded-circle bg-secondary text-white d-inline-flex align-items-center justify-content-center"
-                        style="width: 40px; height: 40px"
-                    >
-                        <span>🔒</span>
+            <div class="flex items-center justify-center h-full bg-black-50">
+                <div class="max-w-sm w-full bg-white rounded-lg shadow p-8 text-center">
+                    <div class="flex justify-center mb-4">
+                        <div class="bg-gray-200 rounded-full p-4">
+                            <i class="fas fa-shopping-cart fa-2x text-black"></i>
+                        </div>
                     </div>
-                </div>
-                <p class="text-center text-muted small mb-1 text-black">USD</p>
-                <h3 class="text-center mb-3 text-black">$1,400</h3>
-                <ul class="small ps-3 mb-3">
-                    <li class="text-black">Basic Charge (Wedding Category)</li>
-                    <li class="text-black">Monochrome Melodies Base + $200</li>
-                    <li class="text-black">Culling (5000) + $500</li>
-                    <li class="text-black">Skin Retouching (Heavy) + $500</li>
-                </ul>
-                <div class="d-flex justify-content-between small">
-                    <span class="text-black">Amount</span>
-                    <span class="text-black">USD 1,400</span>
-                </div>
-                <div class="d-flex justify-content-between small">
-                    <span class="text-black">Express Delivery</span>
-                    <span></span>
+                    <h1 class="text-3xl font-semibold mb-2 text-black">USD 1,400</h1>
+                    <p class="text-black mb-6">Basic Charge ({{ $category->name }})</p>
+                    <div class="space-y-4 text-left text-sm text-black">
+                        <div class="flex justify-between">
+                            <span>Monochrome Melodies (1000 items)</span>
+                            <span class="font-medium">$300</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span>Culling (5000 items)</span>
+                            <span class="font-medium">$100</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span>Skin Retouching (1000 items)</span>
+                            <span class="font-medium">$1,000</span>
+                        </div>
+                        <hr />
+                        <div class="flex justify-between font-semibold">
+                            <span>Amount</span>
+                            <span>USD 1,400</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <label class="flex items-center space-x-2">
+                                <input type="checkbox" name="delivery" class="accent-black" />
+                                <span>Express Delivery</span>
+                            </label>
+                            <span class="font-medium">USD 1,820</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

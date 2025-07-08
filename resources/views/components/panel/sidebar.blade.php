@@ -1,7 +1,7 @@
 <style>
     .font-bold {
         font-weight: bold;
-        font-size: 17px !important;
+        font-size: 15px !important;
     }
 </style>
 
@@ -14,7 +14,7 @@
     <li class="nav-item">
         <a class="nav-link" href="{{ route('users.orders.data') }}">
             <i class="fas fa-box"></i>
-            <span class="font-bold">Order</span>
+            <span class="font-bold">Orders</span>
         </a>
     </li>
 
