@@ -156,17 +156,23 @@ class MakeOrder extends Component
 
     public function express_delivery_calculation_change()
     {
-        if ($this->express_delivery_checkbox) {
-            $this->express_delivery_fee = $this->base_total_price * 0.30;
-        } else {
-            $this->express_delivery_fee = 0;
-        }
+//        if ($this->express_delivery_checkbox) {
+//            $this->express_delivery_fee = $this->base_total_price * 0.30;
+//        } else {
+//            $this->express_delivery_fee = 0;
+//        }
 
         $this->updateTotalPrice();
     }
 
     public function updateTotalPrice()
     {
+        if ($this->express_delivery_checkbox) {
+            $this->express_delivery_fee = $this->base_total_price * 0.30;
+        } else {
+            $this->express_delivery_fee = 0;
+        }
+
         $this->total_price = $this->base_total_price + $this->express_delivery_fee;
     }
 
