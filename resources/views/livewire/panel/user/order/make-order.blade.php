@@ -1,8 +1,5 @@
 <div class="container">
 
-    {{--    <p>{{ session('styles') }}</p>--}}
-
-
     <!-- Pick a style -->
     <h6 class="mb-3" style="font-weight: bold; text-align: left; padding-top: 1rem; font-size: 25px;">Pick a style</h6>
     <div class="row flex-column-reverse flex-lg-row">
@@ -12,7 +9,6 @@
 
                 @foreach($styles as $style)
 
-                    <!-- Card 1 -->
                     <div class="col-sm-6 col-md-4 mt-2">
                         <div class="card h-100">
                             <div
@@ -20,7 +16,8 @@
                                 style="background-color: #f8f8f8; border-radius: 12px"
                             >
                                 <div>
-                                    <input type="radio" name="radio"/>
+                                    <input type="radio" name="radio_{{ $style->id }}"
+                                           wire:click="selectMain({{ $style->id }})"/>
                                 </div>
                                 <img
                                     src="{{ asset('storage/'.$style->image) }}"
@@ -50,31 +47,36 @@
                             <i class="fas fa-shopping-cart fa-2x text-black"></i>
                         </div>
                     </div>
-                    <h1 class="text-3xl font-semibold mb-2 text-black">USD 1,400</h1>
+                    <h1 class="text-3xl font-semibold mb-2 text-black">USD {{ $total_price }}</h1>
                     <p class="text-black mb-6">Basic Charge ({{ $category->name }})</p>
                     <div class="space-y-4 text-left text-sm text-black">
 
-                        <div class="flex justify-between">
-                            <span>Culling (5000 items)</span>
-                            <span class="font-medium">$100</span>
-                        </div>
-
-                        <div class="flex justify-between">
-                            <span>Skin Retouching (1000 items)</span>
-                            <span class="font-medium">$1,000</span>
-                        </div>
+                        @if($is_culling)
+                            <div class="flex justify-between">
+                                <span>Culling ({{ $number_culling_items }} items)</span>
+                                <span class="font-medium">${{ $culling_price }}</span>
+                            </div>
+                        @endif
 
 
-                        <div class="flex justify-between">
-                            <span>Preview Edits (1000 items)</span>
-                            <span class="font-medium">$1,000</span>
-                        </div>
+                        @if($is_skin_retouching)
+                            <div class="flex justify-between">
+                                <span>Skin Retouching ({{ $number_skin_retouching_items }} items)</span>
+                                <span class="font-medium">${{ $skin_retouch_price }}</span>
+                            </div>
+                        @endif
 
+                        @if($preview_edits)
+                            <div class="flex justify-between">
+                                <span>Preview Edits</span>
+                                <span class="font-medium"></span>
+                            </div>
+                        @endif
                         <hr/>
 
                         <div class="flex justify-between font-semibold">
                             <span>Amount</span>
-                            <span>USD 1,400</span>
+                            <span>USD {{ $total_price }}</span>
                         </div>
 
                         <div class="flex justify-between items-center">
@@ -82,7 +84,7 @@
                                 <input type="checkbox" name="delivery" class="accent-black"/>
                                 <span>Express Delivery</span>
                             </label>
-                            <span class="font-medium">USD 1,820</span>
+                            <span class="font-medium">USD 0</span>
                         </div>
                     </div>
                 </div>
@@ -108,7 +110,8 @@
                                 style="background-color: #f8f8f8; border-radius: 12px"
                             >
                                 <div>
-                                    <input type="checkbox"/>
+                                    <input type="checkbox" name="radio_{{ $style->id }}"
+                                           wire:click="toggleAdditional({{ $style->id }})"/>
                                 </div>
                                 <img
                                     src="{{ asset('storage/'.$style->image) }}"
@@ -133,71 +136,86 @@
 
     <!-- ---------------------------- Culling Section ------------------------------------ -->
 
-
-    <div class="mb-2" style="max-width: 300px">
-        <label class="form-label small fw-bold text-black">
-            <input type="checkbox" class="accent-black" id="cullingCheckbox" wire:model.live="cullingCheckbox"/> Culling
-        </label>
-
-
-        @if($cullingCheckbox)
-
-            <div id="cullingOptions" style="margin-top: 10px">
-                <label class="form-label small text-black"
-                >How many images are you sending us?</label
-                >
-                <input type="text" class="form-control mb-3"/>
-
-                <label class="form-label small text-black"
-                >How many images should we cull down to?</label
-                >
-                <input type="text" class="form-control mb-3"/>
-
-                <label class="form-label small text-black"
-                >How would you like us to mark your images?</label
-                >
-                <input type="text" class="form-control mb-3"/>
-            </div>
-
-        @endif
-
-    </div>
-
-    <!-- Skin Retouching Section -->
-    <div class="mb-2" style="max-width: 300px">
-        <label class="form-label small fw-bold text-black">
-            <input type="checkbox" class="accent-black" id="retouchingCheckbox" wire:model.live="skin_retouch"/> Skin Retouching
-        </label>
+    @if($is_culling)
+        <div class="mb-2" style="max-width: 300px">
+            <label class="form-label small fw-bold text-black">
+                <input type="checkbox" class="accent-black" id="cullingCheckbox" wire:model.live="cullingCheckbox" wire:change="culling_calculation_checkbox_change"/>
+                Culling
+            </label>
 
 
-        @if($skin_retouch)
+            @if($cullingCheckbox)
 
-            <div id="retouchingOptions" style="margin-top: 10px" class="text-black">
-                <label class="form-label small"
-                >How would you like us to select the images for skin
-                    retouching?</label
-                >
-                <input type="text" class="form-control mb-3"/>
+                <div id="cullingOptions" style="margin-top: 10px">
+                    <label class="form-label small text-black"
+                    >How many images are you sending us?</label
+                    >
+                    <input type="number" class="form-control mb-3" wire:model.live="culling_items" wire:input="culling_images_by_user"/>
 
-                <label class="form-label small"
-                >How many images should we cull down to?</label
-                >
-                <input type="text" class="form-control mb-3"/>
+                    <label class="form-label small text-black"
+                    >How many images should we cull down to?</label
+                    >
+                    <input type="text" class="form-control mb-3"/>
 
-                <label class="form-label small"
-                >How would you like us to mark your images?</label
-                >
-                <input type="text" class="form-control mb-3"/>
-            </div>
+                    <label class="form-label small text-black"
+                    >How would you like us to mark your images?</label
+                    >
+                    <input type="text" class="form-control mb-3"/>
+                </div>
 
-        @endif
-    </div>
+            @endif
+
+        </div>
+    @endif
+
+    <!-- ---------------------------- Skin Retouching Section ---------------------------- -->
+
+    @if($is_skin_retouching)
+
+        <div class="mb-2" style="max-width: 300px">
+            <label class="form-label small fw-bold text-black">
+                <input type="checkbox" class="accent-black" id="retouchingCheckbox" wire:model.live="skin_retouch" wire:change="skin_calculation_checkbox_change"/>
+                Skin
+                Retouching
+            </label>
+
+
+            @if($skin_retouch)
+
+                <div id="retouchingOptions" style="margin-top: 10px" class="text-black">
+                    <label class="form-label small"
+                    >How would you like us to select the images for skin
+                        retouching?</label
+                    >
+                    <input type="number" class="form-control mb-3" wire:model.live="skin_retouch_items" wire:input="skin_retouch_images_by_user"/>
+
+                    <label class="form-label small"
+                    >How many images should we cull down to?</label
+                    >
+                    <input type="text" class="form-control mb-3"/>
+
+                    <label class="form-label small"
+                    >How would you like us to mark your images?</label
+                    >
+                    <input type="text" class="form-control mb-3"/>
+                </div>
+
+            @endif
+        </div>
+
+    @endif
+
 
     <!-- ------------------ preview edits ------------------  -->
 
-    <div class="mb-2 text-black" style="max-width: 300px">
-        <label class="form-label small fw-bold"><input type="checkbox" class="accent-black"/> Preview Edits</label>
-    </div>
+
+    @if($preview_edits)
+
+        <div class="mb-2 text-black" style="max-width: 300px">
+            <label class="form-label small fw-bold"><input type="checkbox" class="accent-black"/> Preview Edits</label>
+        </div>
+
+    @endif
 
     <!-- Additional Info -->
     <h6 class="mb-2 text-black">Additional Info</h6>
