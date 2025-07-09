@@ -81,10 +81,12 @@
 
                         <div class="flex justify-between items-center">
                             <label class="flex items-center space-x-2">
-                                <input type="checkbox" name="delivery" class="accent-black"/>
+                                <input type="checkbox" name="delivery" class="accent-black"
+                                       wire:model.live="express_delivery_checkbox"
+                                       wire:input="express_delivery_calculation_change"/>
                                 <span>Express Delivery</span>
                             </label>
-                            <span class="font-medium">USD 0</span>
+                            <span class="font-medium"></span>
                         </div>
                     </div>
                 </div>
@@ -139,7 +141,8 @@
     @if($is_culling)
         <div class="mb-2" style="max-width: 300px">
             <label class="form-label small fw-bold text-black">
-                <input type="checkbox" class="accent-black" id="cullingCheckbox" wire:model.live="cullingCheckbox" wire:change="culling_calculation_checkbox_change"/>
+                <input type="checkbox" class="accent-black" id="cullingCheckbox" wire:model.live="cullingCheckbox"
+                       wire:change="culling_calculation_checkbox_change"/>
                 Culling
             </label>
 
@@ -150,7 +153,8 @@
                     <label class="form-label small text-black"
                     >How many images are you sending us?</label
                     >
-                    <input type="number" class="form-control mb-3" wire:model.live="culling_items" wire:input="culling_images_by_user"/>
+                    <input type="number" class="form-control mb-3" wire:model.live="culling_items"
+                           wire:input="culling_images_by_user"/>
 
                     <label class="form-label small text-black"
                     >How many images should we cull down to?</label
@@ -174,7 +178,8 @@
 
         <div class="mb-2" style="max-width: 300px">
             <label class="form-label small fw-bold text-black">
-                <input type="checkbox" class="accent-black" id="retouchingCheckbox" wire:model.live="skin_retouch" wire:change="skin_calculation_checkbox_change"/>
+                <input type="checkbox" class="accent-black" id="retouchingCheckbox" wire:model.live="skin_retouch"
+                       wire:change="skin_calculation_checkbox_change"/>
                 Skin
                 Retouching
             </label>
@@ -187,7 +192,8 @@
                     >How would you like us to select the images for skin
                         retouching?</label
                     >
-                    <input type="number" class="form-control mb-3" wire:model.live="skin_retouch_items" wire:input="skin_retouch_images_by_user"/>
+                    <input type="number" class="form-control mb-3" wire:model.live="skin_retouch_items"
+                           wire:input="skin_retouch_images_by_user"/>
 
                     <label class="form-label small"
                     >How many images should we cull down to?</label

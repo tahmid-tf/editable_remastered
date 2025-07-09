@@ -4,11 +4,9 @@ namespace App\Livewire\Panel\User\Order;
 
 use App\Models\Style;
 use Livewire\Component;
-use function PHPUnit\Framework\isType;
 
 class MakeOrder extends Component
 {
-
     public $styles;
     public $styles_additional;
     public $title;
@@ -16,21 +14,16 @@ class MakeOrder extends Component
 
     public $final_result;
 
-//   ----------- common dropdowns -----------
-
+    // ----------- common dropdowns -----------
     public $styles_array = [];
-
 
     public $cullingCheckbox;
     public $skin_retouch;
 
-
     // -----****** main dropdowns ******-----
-
     public $is_culling = false;
     public $is_skin_retouching = false;
     public $preview_edits = false;
-
 
     public function mount()
     {
@@ -40,8 +33,7 @@ class MakeOrder extends Component
         $this->category = session('category');
     }
 
-
-//    -------------------------------------- calculated options --------------------------------------
+    // -------------------------------------- calculated options --------------------------------------
     public int $selected_main_id = 0;
     public array $selected_additional_ids = [];
 
@@ -66,7 +58,6 @@ class MakeOrder extends Component
         $main = Style::find($this->selected_main_id);
 
         if (!$main) {
-            // Maybe you want to clear the result if no main is selected
             $this->final_result = [
                 'is_culling' => false,
                 'is_skin_retouch' => false,
@@ -94,69 +85,92 @@ class MakeOrder extends Component
         $this->is_culling = $result['is_culling'];
         $this->is_skin_retouching = $result['is_skin_retouch'];
         $this->preview_edits = $result['is_preview_edit'];
-
     }
 
-//    -------------------------------------- calculated options --------------------------------------
+    // --------------------------------------- cart calculations ------------------------------------------
 
+    public $total_price = 0; // final total (base + express)
+    public $base_total_price = 0; // base price before express
+    public $express_delivery_fee = 0;
 
-// ----------------------------- cart calculations -----------------------------
+    public $number_culling_items = 0;
+    public $culling_price = 0;
 
-    public $total_price = 0; // total price
+    public $number_skin_retouching_items = 0;
+    public $skin_retouch_price = 0;
 
-    public $number_culling_items = 0; // total selected culling items from view
-    public $culling_price = 0; // total culling price
+    public $culling_items = 0;
+    public $skin_retouch_items = 0;
 
-    public $number_skin_retouching_items = 0; // total skin retouch selected culling items from view
-    public $skin_retouch_price = 0; // total skin retouch price
-
-    public $culling_items = 0; // wire live input from view
-    public $skin_retouch_items = 0; // wire live input from view
-
-
-    // ---------- cart calculations
+    public $express_delivery_checkbox;
 
     public function culling_images_by_user()
     {
-        $previous_culling_price = $this->culling_price ?? 0;
+        $previous = $this->culling_price ?? 0;
+
         $this->number_culling_items = $this->culling_items;
         $this->culling_price = $this->category->culling_price * (int) $this->number_culling_items;
-        $this->total_price -= $previous_culling_price; // Remove old
-        $this->total_price += $this->culling_price;    // Add new
-    }
 
+        $this->base_total_price -= $previous;
+        $this->base_total_price += $this->culling_price;
+
+        $this->updateTotalPrice();
+    }
 
     public function skin_retouch_images_by_user()
     {
-        $previous_skin_retouch_price = $this->skin_retouch_price ?? 0;
+        $previous = $this->skin_retouch_price ?? 0;
+
         $this->number_skin_retouching_items = $this->skin_retouch_items;
         $this->skin_retouch_price = $this->category->skin_retouch_price * (int) $this->number_skin_retouching_items;
-        $this->total_price -= $previous_skin_retouch_price; // remove old
-        $this->total_price += $this->skin_retouch_price;    // add new
-    }
 
+        $this->base_total_price -= $previous;
+        $this->base_total_price += $this->skin_retouch_price;
+
+        $this->updateTotalPrice();
+    }
 
     public function culling_calculation_checkbox_change()
     {
         if ($this->cullingCheckbox == false) {
-            $this->total_price -= $this->culling_price; // remove it from total
-            $this->number_culling_items = 0;
+            $this->base_total_price -= $this->culling_price;
             $this->culling_price = 0;
+            $this->number_culling_items = 0;
             $this->culling_items = 0;
+
+            $this->updateTotalPrice();
         }
     }
 
     public function skin_calculation_checkbox_change()
     {
         if ($this->skin_retouch == false) {
-            $this->total_price -= $this->skin_retouch_price; // remove old portion
-            $this->skin_retouch_items = 0;
+            $this->base_total_price -= $this->skin_retouch_price;
             $this->skin_retouch_price = 0;
             $this->number_skin_retouching_items = 0;
+            $this->skin_retouch_items = 0;
+
+            $this->updateTotalPrice();
         }
     }
 
+    public function express_delivery_calculation_change()
+    {
+        if ($this->express_delivery_checkbox) {
+            $this->express_delivery_fee = $this->base_total_price * 0.30;
+        } else {
+            $this->express_delivery_fee = 0;
+        }
 
+        $this->updateTotalPrice();
+    }
+
+    public function updateTotalPrice()
+    {
+        $this->total_price = $this->base_total_price + $this->express_delivery_fee;
+    }
+
+    // --------------------------------------- cart calculations ------------------------------------------
 
     public function render()
     {
