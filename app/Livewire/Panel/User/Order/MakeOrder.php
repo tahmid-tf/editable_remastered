@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Panel\User\Order;
 
+use App\Models\Order;
 use App\Models\Style;
 use Livewire\Component;
 
@@ -202,24 +203,52 @@ class MakeOrder extends Component
 
 
         if ($this->cullingCheckbox) {
-            if ($no_of_culling_items < $category->culling_threshold){
-                $this->addError('culling_threshold_waring', 'Minimum threshold '.$category->culling_threshold.' is required.');
+            if ($no_of_culling_items < $category->culling_threshold) {
+                $this->addError('culling_threshold_waring', 'Minimum threshold ' . $category->culling_threshold . ' is required.');
                 return;
             }
         }
 
-        if ($this->skin_retouch){
-            if ($no_of_skin_retouching_items < $category->skin_retouch_threshold){
-                $this->addError('skin_threshold_waring', 'minimum threshold '.$category->skin_retouch_threshold.' is required.');
+        if ($this->skin_retouch) {
+            if ($no_of_skin_retouching_items < $category->skin_retouch_threshold) {
+                $this->addError('skin_threshold_waring', 'minimum threshold ' . $category->skin_retouch_threshold . ' is required.');
                 return;
             }
         }
 
-        dd($cull_down_image_mark);
+
+        $style_data = Style::whereIn('id', array_merge([$this->selected_main_id], $additional_styles))->pluck('name')->implode(', ');;
 
 
+//        ---------------------------------- order creation ----------------------------------
 
+        $order = new Order();
+        $order->users_email = auth()->user()->email;
+        $order->users_phone = auth()->user()->phone;
+        $order->users_name = auth()->user()->name;
+        $order->order_type = $this->express_delivery_checkbox ? "express" : "standard";
+        $order->order_name = "Test";
+        $order->category_name = $category->name;
 
+        $order->amount = $this->total_price;
+        $order->file_uploaded_by_user = $google_drive_link;
+        $order->styles = $style_data ?? '';
+
+        $order->number_of_images_provided = $no_of_culling_items;
+        $order->culling = $this->cullingCheckbox ? 'yes' : 'no';
+        $order->images_culled_down_to = $images_cull_down_to;
+        $order->select_image_culling_type = $cull_down_image_mark;
+
+        $order->skin_retouching = $this->skin_retouch ? 'yes' : 'no';
+        $order->skin_retouching_type = $skin_retouch_select_image_type;
+        $order->no_of_skin_retouch_items = $no_of_skin_retouching_items;
+
+        $order->preview_edits = $this->preview_edit_checkbox_value ? 'yes' : 'no';
+        $order->user_id = auth()->id();
+
+        $order->save();
+
+        return redirect()->route("users.orders.data");
     }
 
 
