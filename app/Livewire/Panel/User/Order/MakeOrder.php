@@ -109,7 +109,7 @@ class MakeOrder extends Component
         $previous = $this->culling_price ?? 0;
 
         $this->number_culling_items = $this->culling_items;
-        $this->culling_price = $this->category->culling_price * (int) $this->number_culling_items;
+        $this->culling_price = $this->category->culling_price * (int)$this->number_culling_items;
 
         $this->base_total_price -= $previous;
         $this->base_total_price += $this->culling_price;
@@ -122,7 +122,7 @@ class MakeOrder extends Component
         $previous = $this->skin_retouch_price ?? 0;
 
         $this->number_skin_retouching_items = $this->skin_retouch_items;
-        $this->skin_retouch_price = $this->category->skin_retouch_price * (int) $this->number_skin_retouching_items;
+        $this->skin_retouch_price = $this->category->skin_retouch_price * (int)$this->number_skin_retouching_items;
 
         $this->base_total_price -= $previous;
         $this->base_total_price += $this->skin_retouch_price;
@@ -156,11 +156,6 @@ class MakeOrder extends Component
 
     public function express_delivery_calculation_change()
     {
-//        if ($this->express_delivery_checkbox) {
-//            $this->express_delivery_fee = $this->base_total_price * 0.30;
-//        } else {
-//            $this->express_delivery_fee = 0;
-//        }
 
         $this->updateTotalPrice();
     }
@@ -177,6 +172,56 @@ class MakeOrder extends Component
     }
 
     // --------------------------------------- cart calculations ------------------------------------------
+
+    // --------------------------------------- submit ------------------------------------------
+
+
+    public $images_cull_down_to;
+    public $cull_down_image_mark;
+    public $skin_retouch_select_image_type;
+    public $preview_edit_checkbox_value;
+    public $google_drive_link;
+
+    public function submit()
+    {
+        $category = $this->category;
+        $styles = $this->selected_main_id;
+        $additional_styles = $this->selected_additional_ids;
+
+        $no_of_culling_items = $this->culling_items;
+        $images_cull_down_to = $this->images_cull_down_to;
+        $cull_down_image_mark = $this->cull_down_image_mark;
+
+        $no_of_skin_retouching_items = $this->skin_retouch_items;
+        $skin_retouch_select_image_type = $this->skin_retouch_select_image_type;
+        $preview_edit_checkbox_value = $this->preview_edit_checkbox_value;
+
+        $google_drive_link = $this->google_drive_link;
+
+//        dd($category->culling_threshold);
+
+
+        if ($this->cullingCheckbox) {
+            if ($no_of_culling_items < $category->culling_threshold){
+                $this->addError('culling_threshold_waring', 'Minimum threshold '.$category->culling_threshold.' is required.');
+                return;
+            }
+        }
+
+        if ($this->skin_retouch){
+            if ($no_of_skin_retouching_items < $category->skin_retouch_threshold){
+                $this->addError('skin_threshold_waring', 'minimum threshold '.$category->skin_retouch_threshold.' is required.');
+                return;
+            }
+        }
+
+        dd($cull_down_image_mark);
+
+
+
+
+    }
+
 
     public function render()
     {

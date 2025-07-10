@@ -156,15 +156,28 @@
                     <input type="number" class="form-control mb-3" wire:model.live="culling_items"
                            wire:input="culling_images_by_user"/>
 
+                    @error('culling_threshold_waring')
+                    <div style="color: red; font-size: 13px;">{{ $message }}</div>
+                    @enderror
+
                     <label class="form-label small text-black"
                     >How many images should we cull down to?</label
                     >
-                    <input type="text" class="form-control mb-3"/>
+                    <input type="text" class="form-control mb-3" wire:model.live="images_cull_down_to"/>
 
-                    <label class="form-label small text-black"
-                    >How would you like us to mark your images?</label
-                    >
-                    <input type="text" class="form-control mb-3"/>
+                    <label class="form-label small text-black">
+                        How would you like us to mark your images?
+                    </label>
+
+                    <select class="form-control mb-3" wire:model.live="cull_down_image_mark">
+                        <option value="" disabled>Select a marking style</option>
+                        <option value="star">⭐ Star</option>
+                        <option value="color">🎨 Color</option>
+                    </select>
+
+                    @error('cull_down_image_mark')
+                    <div style="color: red; font-size: 13px;">{{ $message }}</div>
+                    @enderror
                 </div>
 
             @endif
@@ -185,25 +198,36 @@
             </label>
 
 
+
+
+
             @if($skin_retouch)
 
                 <div id="retouchingOptions" style="margin-top: 10px" class="text-black">
                     <label class="form-label small"
-                    >How would you like us to select the images for skin
-                        retouching?</label
+                    >How many images you are sending us?</label
                     >
                     <input type="number" class="form-control mb-3" wire:model.live="skin_retouch_items"
                            wire:input="skin_retouch_images_by_user"/>
 
-                    <label class="form-label small"
-                    >How many images should we cull down to?</label
-                    >
-                    <input type="text" class="form-control mb-3"/>
+                    @error('skin_threshold_waring')
+                    <div style="color: red; font-size: 13px;">{{ $message }}</div>
+                    @enderror
 
-                    <label class="form-label small"
-                    >How would you like us to mark your images?</label
-                    >
-                    <input type="text" class="form-control mb-3"/>
+                    <label class="form-label small">
+                        How would you like us to select the images for skin retouching?
+                    </label>
+
+                    <select class="form-control mb-3" wire:model.live="skin_retouch_select_image_type">
+                        <option value="" disabled>Select an option</option>
+                        <option value="all_images">📂 All Images</option>
+                        <option value="portraits_only">🏷️ Portraits only</option>
+                    </select>
+
+                    @error('skin_retouch_select_image_type')
+                    <div style="color: red; font-size: 13px;">{{ $message }}</div>
+                    @enderror
+
                 </div>
 
             @endif
@@ -218,20 +242,21 @@
     @if($preview_edits)
 
         <div class="mb-2 text-black" style="max-width: 300px">
-            <label class="form-label small fw-bold"><input type="checkbox" class="accent-black"/> Preview Edits</label>
+            <label class="form-label small fw-bold"><input type="checkbox" class="accent-black"
+                                                           wire:model.live="preview_edit_checkbox_value"/> Preview Edits</label>
         </div>
 
     @endif
 
     <!-- Additional Info -->
-    <h6 class="mb-2 text-black">Additional Info</h6>
-    <textarea
+    <h6 class="mb-2 text-black">Google drive link with images</h6>
+    <input
         class="form-control form-control-sm mb-3"
-        rows="3"
         placeholder="Drop style link with your images"
         style="max-width: 300px"
-    ></textarea>
-    <button class="btn btn-dark btn-sm text-uppercase">Place Order</button>
+        wire:model.live="google_drive_link"
+    ></input>
+    <button class="btn btn-dark btn-sm text-uppercase" wire:click.prevent="submit">Place Order</button>
 
 
 </div>
