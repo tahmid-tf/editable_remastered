@@ -9,7 +9,7 @@
 
     <div class="d-flex flex-wrap justify-content-between" style="margin: 0 10px; padding-bottom: 2rem">
         <div>
-            <input type="text" placeholder="Search" class="input_table">
+            <input type="text" placeholder="Order name" class="input_table" wire:model.live="search">
         </div>
         <div>
             <button class="box_button" wire:click.prevent="order_modal_1_visibility_function">
@@ -24,50 +24,53 @@
         <table id="myTable">
             <thead>
             <tr>
-                <th>#<span class="icon">⇅</span>
+                <th wire:click="sortBy('id')">#<span class="icon">⇅</span>
                 </th>
                 <th>
                     Order Name
                 </th>
-                {{--  ------------- extra ------------- --}}
 
                 <th>Date</th>
-                <th>ID</th>
-                <th>Expected Delivery</th>
+                <th>Order ID</th>
                 <th>My Drive Link</th>
                 <th>Preview</th>
                 <th>Status</th>
                 <th>Price</th>
-                <th>Download</th>
+                <th>Download File</th>
 
-                {{--  ------------- extra ------------- --}}
                 <th>Actions</th>
             </tr>
             </thead>
             <tbody>
 
-            <tr>
 
-                {{--  ------------- extra ------------- --}}
+            @foreach($orders as $order)
 
-                <th>Serial</th>
-                <th>Order Name</th>
-                <th>Date</th>
-                <th>ID</th>
-                <th>Expected Delivery</th>
-                <th>My Drive Link</th>
-                <th>Preview</th>
-                <th>Status</th>
-                <th>Price</th>
-                <th>Download</th>
+                <tr>
+                    <th>{{ $loop->iteration }}</th>
+                    <th>{{ $order->order_name }}</th>
+                    <th>{{ $order->created_at }}</th>
+                    <th>#{{ $order->id }}</th>
+                    <th><a href="{{ $order->file_uploaded_by_user }}">File Link</a></th>
+                    <th>-</th>
+                    <th>{{ $order->order_status }}</th>
+                    <th>{{ $order->amount }}$</th>
+                    <th>
+                        @if($order->file_uploaded_by_admin_after_edit == null)
+                        -
+                        @else
+                            <a href="{{ $order->file_uploaded_by_admin_after_edit }}">Download Link</a>
+                        @endif
+                    </th>
+                    <th>
+                        <i class="fas fa-eye" style="cursor: pointer" title="view"></i>
+{{--                        <i class="fas fa-pen" style="cursor: pointer; margin-left: 15px" title="update"></i>--}}
+{{--                        <i class="fas fa-trash-alt" style="cursor: pointer; margin-left: 15px" title="delete"></i>--}}
+                    </th>
+                </tr>
 
-                {{--  ------------- extra ------------- --}}
+            @endforeach
 
-                <td>
-                    <i class="fas fa-pen" style="cursor: pointer"></i>
-                    <i class="fas fa-trash-alt" style="cursor: pointer; margin-left: 15px"></i>
-                </td>
-            </tr>
 
             </tbody>
         </table>
@@ -85,17 +88,17 @@
         <div class="h-full bg-gray-100">
             <!-- Backdrop overlay with blur -->
             <div
-                class="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4"
+                    class="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4"
             >
                 <!-- Modal box -->
                 <div
-                    class="relative p-6 rounded-lg w-full max-w-5xl mx-auto overflow-y-auto max-h-full"
+                        class="relative p-6 rounded-lg w-full max-w-5xl mx-auto overflow-y-auto max-h-full"
                 >
                     <!-- Close button -->
                     <button
-                        wire:click.prevent="order_modal_1_visibility_function"
-                        class="text-gray-500 hover:text-gray-800 text-2xl font-bold"
-                        style="position: absolute; top: -10px; right: 20px; color: white !important"
+                            wire:click.prevent="order_modal_1_visibility_function"
+                            class="text-gray-500 hover:text-gray-800 text-2xl font-bold"
+                            style="position: absolute; top: -10px; right: 20px; color: white !important"
                     >
                         &times;
                     </button>
@@ -115,8 +118,8 @@
                                 choose from their existing presets.
                             </p>
                             <button
-                                wire:click="order_modal_2_visibility_function('Standard Delivery')"
-                                class="w-full bg-black text-white py-2 rounded hover:bg-gray-800"
+                                    wire:click="order_modal_2_visibility_function('Standard Delivery')"
+                                    class="w-full bg-black text-white py-2 rounded hover:bg-gray-800"
                             >
                                 Proceed
                             </button>
@@ -138,8 +141,8 @@
                                 choose from their existing presets.
                             </p>
                             <button
-                                wire:click="order_modal_2_visibility_function('Express Delivery')"
-                                class="w-full bg-black text-white py-2 rounded hover:bg-gray-800"
+                                    wire:click="order_modal_2_visibility_function('Express Delivery')"
+                                    class="w-full bg-black text-white py-2 rounded hover:bg-gray-800"
                             >
                                 Proceed
                             </button>
@@ -158,7 +161,7 @@
                                 style.
                             </p>
                             <button
-                                class="w-full bg-black text-white py-2 rounded hover:bg-gray-800"
+                                    class="w-full bg-black text-white py-2 rounded hover:bg-gray-800"
                             >
                                 Proceed
                             </button>
@@ -179,10 +182,10 @@
                 <div class="relative bg-white p-6 rounded-lg shadow-xl w-full max-w-sm">
                     <!-- Better cross button (more visible) -->
                     <button
-                        wire:click="order_modal_2_visibility_function"
-                        type="button"
-                        class="absolute top-4 right-4 text-gray-600 hover:text-black focus:outline-none"
-                        aria-label="Close"
+                            wire:click="order_modal_2_visibility_function"
+                            type="button"
+                            class="absolute top-4 right-4 text-gray-600 hover:text-black focus:outline-none"
+                            aria-label="Close"
                     >
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
@@ -196,20 +199,20 @@
                         <label class="block text-sm mb-2" for="name" style="color: black">Order Name</label>
 
                         <input
-                            id="delivery_type"
-                            type="hidden"
-                            value="{{ $title }}"
-                            wire:model="order_title"
+                                id="delivery_type"
+                                type="hidden"
+                                value="{{ $title }}"
+                                wire:model="order_title"
                         />
 
                         <input
-                            id="name"
-                            type="text"
-                            value=""
-                            placeholder="Enter Name"
-                            class="w-full border border-gray-300 rounded px-3 py-2 mb-4 focus:outline-none focus:ring focus:border-blue-500"
-                            style="color: black"
-                            wire:model="order_name"
+                                id="name"
+                                type="text"
+                                value=""
+                                placeholder="Enter Name"
+                                class="w-full border border-gray-300 rounded px-3 py-2 mb-4 focus:outline-none focus:ring focus:border-blue-500"
+                                style="color: black"
+                                wire:model="order_name"
                         />
 
                         <label class="block text-sm mb-2" for="name" style="color: black">Select Category</label>
@@ -219,16 +222,15 @@
                         @enderror
 
                         <select
-                            wire:model="selectedCategoryId"
-                            class="w-full border border-gray-300 rounded px-3 py-2 mb-4 focus:outline-none focus:ring focus:border-blue-500 text-black"
-                            style="appearance: none; background-color: white; background-image: url('data:image/svg+xml;utf8,<svg fill=\'%23000\' height=\'24\' viewBox=\'0 0 24 24\' width=\'24\' xmlns=\'http://www.w3.org/2000/svg\'><path d=\'M7 10l5 5 5-5H7z\'/></svg>'); background-repeat: no-repeat; background-position: right 0.75rem center; background-size: 1rem;"
+                                wire:model="selectedCategoryId"
+                                class="w-full border border-gray-300 rounded px-3 py-2 mb-4 focus:outline-none focus:ring focus:border-blue-500 text-black"
+                                style="appearance: none; background-color: white; background-image: url('data:image/svg+xml;utf8,<svg fill=\'%23000\' height=\'24\' viewBox=\'0 0 24 24\' width=\'24\' xmlns=\'http://www.w3.org/2000/svg\'><path d=\'M7 10l5 5 5-5H7z\'/></svg>'); background-repeat: no-repeat; background-position: right 0.75rem center; background-size: 1rem;"
                         >
                             <option value="" disabled>Select Category</option>
                             @foreach($categories as $category)
                                 <option value="{{ $category->id }}">{{ $category->name ?? '' }}</option>
                             @endforeach
                         </select>
-
 
 
                         <button class="w-full bg-black text-white py-2 rounded hover:bg-gray-800">Create Editor</button>
