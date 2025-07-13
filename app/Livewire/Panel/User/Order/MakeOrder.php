@@ -227,7 +227,7 @@ class MakeOrder extends Component
         $order->users_phone = auth()->user()->phone;
         $order->users_name = auth()->user()->name;
         $order->order_type = $this->express_delivery_checkbox ? "express" : "standard";
-        $order->order_name = "Test";
+        $order->order_name = $this->title;
         $order->category_name = $category->name;
 
         $order->amount = $this->total_price;

@@ -48,7 +48,41 @@ class OrderView extends Component
     public $order_modal_2_visibility = false;
     public $title;
     public $categories;
-    public $step;
+
+    public $payment_info_modal = false;
+
+    //----------------
+
+    public $amount_data;
+    public $order_name_data;
+    public $category_name;
+    public $styles_data;
+    public $culling_data;
+    public $skin_retouching;
+    public $preview_edit;
+    public $payment_status;
+    public $order_id;
+
+    public function payment_info_modal_visibility($model)
+    {
+        try {
+            $this->amount_data = $model['amount'];
+            $this->order_name_data = $model['order_name'];
+            $this->category_name = $model['category_name'];
+            $this->styles_data = $model['styles'];
+            $this->culling_data = $model['culling'];
+            $this->skin_retouching = $model['skin_retouching'];
+            $this->preview_edit = $model['preview_edits'];
+            $this->payment_status = $model['payment_status'];
+            $this->order_id = $model['id'];
+
+            $this->payment_info_modal = !$this->payment_info_modal;
+        }catch (\Exception $exception){
+            $this->payment_info_modal = false;
+        }
+
+    }
+
 
     // ----------------- order name and category data -----------------
 
@@ -81,8 +115,6 @@ class OrderView extends Component
             'selectedCategoryId' => 'required',
         ]);
 
-//        $this->step = 'create_order';
-
         $category = Category::find($this->selectedCategoryId);
         $styles = Style::whereJsonContains('categories', $category->name)->where('is_additional', "no")->get();
         $styles_additional = Style::whereJsonContains('categories', $category->name)->where('is_additional', "yes")->get();
@@ -99,12 +131,19 @@ class OrderView extends Component
 
     }
 
+
+    // ------------------------------- payment information modal-------------------------------
+
+
+    // ------------------------------- payment information modal-------------------------------
+
     public function render()
     {
 
         $orders = \App\Models\Order::query()
             ->when($this->search, fn($q) => $q->where('order_name', 'like', "%{$this->search}%"))
             ->orderBy($this->sortField, $this->sortDirection)
+            ->where('user_id', auth()->id())
             ->paginate($this->perPage);
 
         return view('livewire.panel.user.order.order-view', [
