@@ -30,6 +30,14 @@
 {{-- -------------------------------------- Admin Routes -------------------------------------- --}}
 
 @if(auth()->user()->hasRole('admin'))
+
+    <li class="nav-item">
+        <a class="nav-link" href="{{ route('admin-order-data') }}">
+            <i class="fas fa-box"></i>
+            <span class="font-bold">Orders</span>
+        </a>
+    </li>
+
     <li class="nav-item">
         <a class="nav-link" href="{{ route('editors') }}">
             <i class="fas fa-user-edit"></i>

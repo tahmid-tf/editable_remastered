@@ -12,7 +12,7 @@
     <div class="right">
 
         <div class="login-box">
-            <h5>General Settings</h5>
+            <h5 class="h5_text_size" style="margin-left: 0px">General Settings</h5>
 
             <form method="POST" wire:submit.prevent="submitData">
                 @csrf

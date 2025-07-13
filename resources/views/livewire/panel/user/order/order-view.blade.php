@@ -9,7 +9,7 @@
 
     <div class="d-flex flex-wrap justify-content-between" style="margin: 0 10px; padding-bottom: 2rem">
         <div>
-            <input type="text" placeholder="Search" class="input_table">
+            <input type="text" placeholder="Order name" class="input_table" wire:model.live="search">
         </div>
         <div>
             <button class="box_button" wire:click.prevent="order_modal_1_visibility_function">
@@ -24,60 +24,168 @@
         <table id="myTable">
             <thead>
             <tr>
-                <th>#<span class="icon">⇅</span>
+                <th wire:click="sortBy('id')">#<span class="icon">⇅</span>
                 </th>
                 <th>
                     Order Name
                 </th>
-                {{--  ------------- extra ------------- --}}
 
                 <th>Date</th>
-                <th>ID</th>
-                <th>Expected Delivery</th>
+                <th>Order ID</th>
                 <th>My Drive Link</th>
                 <th>Preview</th>
                 <th>Status</th>
                 <th>Price</th>
-                <th>Download</th>
+                <th>Download File</th>
 
-                {{--  ------------- extra ------------- --}}
                 <th>Actions</th>
             </tr>
             </thead>
             <tbody>
 
-            <tr>
 
-                {{--  ------------- extra ------------- --}}
+            @foreach($orders as $order)
 
-                <th>Serial</th>
-                <th>Order Name</th>
-                <th>Date</th>
-                <th>ID</th>
-                <th>Expected Delivery</th>
-                <th>My Drive Link</th>
-                <th>Preview</th>
-                <th>Status</th>
-                <th>Price</th>
-                <th>Download</th>
+                <tr>
+                    <th>{{ $loop->iteration }}</th>
+                    <th>{{ $order->order_name }}</th>
+                    <th>{{ $order->created_at }}</th>
+                    <th>#{{ $order->id }}</th>
+                    <th><a href="{{ $order->file_uploaded_by_user }}">File Link</a></th>
+                    <th>-</th>
+                    <th>{{ $order->order_status }}</th>
+                    <th>{{ $order->amount }}$</th>
+                    <th>
+                        @if($order->file_uploaded_by_admin_after_edit == null)
+                            -
+                        @else
+                            <a href="{{ $order->file_uploaded_by_admin_after_edit }}">Download Link</a>
+                        @endif
+                    </th>
+                    <th>
+                        <i class="fas fa-eye" style="cursor: pointer" title="view"
+                           wire:click.prevent="payment_info_modal_visibility({{ $order }})"></i>
+                        {{--                        <i class="fas fa-pen" style="cursor: pointer; margin-left: 15px" title="update"></i>--}}
+                        {{--                        <i class="fas fa-trash-alt" style="cursor: pointer; margin-left: 15px" title="delete"></i>--}}
+                    </th>
+                </tr>
 
-                {{--  ------------- extra ------------- --}}
+            @endforeach
 
-                <td>
-                    <i class="fas fa-pen" style="cursor: pointer"></i>
-                    <i class="fas fa-trash-alt" style="cursor: pointer; margin-left: 15px"></i>
-                </td>
-            </tr>
 
             </tbody>
         </table>
     </div>
 
+    <div>
+        {{ $orders->links('vendor.pagination.custom') }}
+    </div>
 
-    {{--    <div>--}}
-    {{--        {{ $editors->links('vendor.pagination.custom') }}--}}
-    {{--    </div>--}}
 
+    {{--  ---------------------------------------- order details modal ---------------------------------------- --}}
+
+    @if($payment_info_modal)
+        <div class="h-full bg-gray-100 flex items-center justify-center">
+            <!-- Backdrop overlay with blur -->
+            <div
+                class="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4"
+            >
+                <!-- Modal box -->
+                <div
+                    class="relative bg-white p-8 rounded-lg shadow-xl w-full max-w-md text-center"
+                >
+                    <!-- Close button -->
+                    <button
+                        type="button"
+                        class="absolute top-4 right-4 text-gray-400 hover:text-black focus:outline-none"
+                        aria-label="Close"
+                        wire:click.prevent="payment_info_modal_visibility(null)"
+                    >
+                        <svg
+                            class="w-6 h-6"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2.5"
+                            viewBox="0 0 24 24"
+                        >
+                            <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                d="M6 18L18 6M6 6l12 12"
+                            />
+                        </svg>
+                    </button>
+
+                    <!-- Paid icon -->
+                    <div
+                        class="mx-auto mb-4 w-12 h-12 rounded-full bg-green-100 flex items-center justify-center"
+                    >
+                        <svg
+                            class="w-6 h-6 text-green-600"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2.5"
+                            viewBox="0 0 24 24"
+                        >
+                            <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                d="M5 13l4 4L19 7"
+                            />
+                        </svg>
+                    </div>
+
+                    <!-- Paid text -->
+                    <p class="text-gray-700 mb-1">{{ ucfirst($payment_status) ?? '' }}!</p>
+                    <h2 class="text-2xl font-bold mb-1">USD {{ $amount_data }}</h2>
+                    <p class="text-xs text-gray-500 mb-6">Order ID: {{ $order_id }}</p>
+
+                    <!-- Basic Charge -->
+                    <h3 class="text-sm font-medium text-gray-700 mb-2">
+                        Basic Charge (Wedding Category)
+                    </h3>
+                    <hr class="mb-4"/>
+
+                    <!-- Items breakdown -->
+                    <div class="space-y-2 text-left">
+                        <div class="flex justify-between text-sm">
+                            <span>Culling</span>
+                            <span class="font-medium">{{ $culling_data }}</span>
+                        </div>
+                        <div class="flex justify-between text-sm">
+                            <span>Skin Retouching</span>
+                            <span class="font-medium">{{ $skin_retouching }}</span>
+                        </div>
+                        <div class="flex justify-between text-sm">
+                            <span>Preview Edits</span>
+                            <span class="font-medium">{{ $preview_edit }}</span>
+                        </div>
+
+                        <div class="flex justify-between text-sm">
+                            <span>Styles</span>
+                            <span class="font-medium">{{ $styles_data }}</span>
+                        </div>
+                    </div>
+
+                    <hr class="my-4"/>
+
+                    <!-- Amounts -->
+                    <div class="space-y-2 text-left">
+                        <div class="flex justify-between text-sm">
+                            <span class="text-gray-600">Amount</span>
+                            <span class="font-semibold">USD {{ $amount_data }}</span>
+                        </div>
+{{--                        <div class="flex justify-between text-sm">--}}
+{{--                            <span class="text-gray-600">Express Delivery</span>--}}
+{{--                            <span class="font-semibold">USD 1,820</span>--}}
+{{--                        </div>--}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endif
+
+    {{--  ---------------------------------------- order details modal ---------------------------------------- --}}
 
     {{--  ---------------------------------------- new order - modal 1 ---------------------------------------- --}}
 
@@ -228,7 +336,6 @@
                                 <option value="{{ $category->id }}">{{ $category->name ?? '' }}</option>
                             @endforeach
                         </select>
-
 
 
                         <button class="w-full bg-black text-white py-2 rounded hover:bg-gray-800">Create Editor</button>

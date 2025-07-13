@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Livewire\Panel\User\Order;
+namespace App\Livewire\Panel\Admin\Order;
 
 use App\Models\Category;
+use App\Models\Order;
 use App\Models\Style;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -42,10 +43,6 @@ class OrderView extends Component
 
     // ---------- pagination ----------
 
-
-    public $order_modal_1_visibility = false;
-
-    public $order_modal_2_visibility = false;
     public $title;
     public $categories;
 
@@ -62,6 +59,60 @@ class OrderView extends Component
     public $preview_edit;
     public $payment_status;
     public $order_id;
+
+
+    // ------------------------------- Assigning Editor-------------------------------
+
+
+    public function assign_editor($editor_id, $order_id)
+    {
+
+
+        $order = Order::find($order_id);
+
+        if ($order) {
+            $order->update(['editors_id' => $editor_id]);
+
+        }
+    }
+
+
+    // ------------------------------- payment status -------------------------------
+
+    public function update_payment_status($selected_value, $order_id)
+    {
+        $allowed_statuses = ['pending', 'successful', 'failed'];
+
+        if (!in_array($selected_value, $allowed_statuses)) {
+            abort(403, 'Invalid payment status.');
+        }
+
+        $order = Order::findOrFail($order_id);
+
+        $order->update([
+            'payment_status' => $selected_value,
+        ]);
+    }
+
+
+    // ------------------------------- order status -------------------------------
+
+    public function update_order_status($selected_value, $order_id)
+    {
+        $allowed_statuses = ['pending', 'completed', 'cancelled'];
+
+        if (!in_array($selected_value, $allowed_statuses)) {
+            abort(403, 'Invalid payment status.');
+        }
+
+        $order = Order::findOrFail($order_id);
+
+        $order->update([
+            'order_status' => $selected_value,
+        ]);
+    }
+
+
 
     // ------------------------------- payment information modal-------------------------------
 
@@ -98,43 +149,6 @@ class OrderView extends Component
         $this->categories = Category::all();
     }
 
-    public function order_modal_1_visibility_function()
-    {
-        $this->order_modal_1_visibility = !$this->order_modal_1_visibility;
-    }
-
-    public function order_modal_2_visibility_function($title = null)
-    {
-        $this->title = $title;
-        $this->order_modal_1_visibility = false;
-        $this->order_modal_2_visibility = !$this->order_modal_2_visibility;
-    }
-
-
-    public function goToOrderCreationPage()
-    {
-        $data = $this->validate([
-            'title' => 'required',
-            'order_name' => 'required',
-            'selectedCategoryId' => 'required',
-        ]);
-
-        $category = Category::find($this->selectedCategoryId);
-        $styles = Style::whereJsonContains('categories', $category->name)->where('is_additional', "no")->get();
-        $styles_additional = Style::whereJsonContains('categories', $category->name)->where('is_additional', "yes")->get();
-        $title = $this->title;
-
-        session([
-            'category' => $category,
-            'styles' => $styles,
-            'styles_additional' => $styles_additional,
-            'title' => $title,
-        ]);
-
-        return redirect(route('users.orders.make'));
-
-    }
-
 
     public function render()
     {
@@ -142,10 +156,9 @@ class OrderView extends Component
         $orders = \App\Models\Order::query()
             ->when($this->search, fn($q) => $q->where('order_name', 'like', "%{$this->search}%"))
             ->orderBy($this->sortField, $this->sortDirection)
-            ->where('user_id', auth()->id())
             ->paginate($this->perPage);
 
-        return view('livewire.panel.user.order.order-view', [
+        return view('livewire.panel.admin.order.order-view', [
             'orders' => $orders,
         ])->layout('layouts.dashboard.main');
     }
