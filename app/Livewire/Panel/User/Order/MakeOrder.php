@@ -28,10 +28,18 @@ class MakeOrder extends Component
 
     public function mount()
     {
+
+
+
+
         $this->styles = session('styles');
         $this->styles_additional = session('styles_additional');
         $this->title = session('title');
         $this->category = session('category');
+
+        if (! $this->styles || ! $this->styles_additional  || ! $this->title || ! $this->category) {
+            return redirect()->route('users.orders.data');
+        }
     }
 
     // -------------------------------------- calculated options --------------------------------------
