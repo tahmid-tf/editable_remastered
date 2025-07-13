@@ -149,16 +149,21 @@
                     <!-- Items breakdown -->
                     <div class="space-y-2 text-left">
                         <div class="flex justify-between text-sm">
-                            <span>Culling ({{ $culling_data }})</span>
-{{--                            <span class="font-medium">$300</span>--}}
+                            <span>Culling</span>
+                            <span class="font-medium">{{ $culling_data }}</span>
                         </div>
                         <div class="flex justify-between text-sm">
-                            <span>Skin Retouching ({{ $skin_retouching }})</span>
-{{--                            <span class="font-medium">$100</span>--}}
+                            <span>Skin Retouching</span>
+                            <span class="font-medium">{{ $skin_retouching }}</span>
                         </div>
                         <div class="flex justify-between text-sm">
-                            <span>Preview Edits ({{ $preview_edit }})</span>
-{{--                            <span class="font-medium">$1,000</span>--}}
+                            <span>Preview Edits</span>
+                            <span class="font-medium">{{ $preview_edit }}</span>
+                        </div>
+
+                        <div class="flex justify-between text-sm">
+                            <span>Styles</span>
+                            <span class="font-medium">{{ $styles_data }}</span>
                         </div>
                     </div>
 
