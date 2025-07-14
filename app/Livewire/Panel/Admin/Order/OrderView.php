@@ -162,14 +162,19 @@ class OrderView extends Component
     public function order_completion_modal_function()
     {
         $this->order_completion_modal = !$this->order_completion_modal;
+        $this->resetPage(); // Or emit an event to re-fetch.
     }
 
     public function complete_order_submission()
     {
-        $order = Order::where('id', $this->update_order_id)->update([
+        Order::where('id', $this->update_order_id)->update([
             'file_uploaded_by_admin_after_edit' => $this->update_drive_link,
+            'order_status' => 'completed', // ✅ Must update this
         ]);
 
+        $this->order_completion_modal = false;
+
+        $this->resetPage();
 
     }
 
@@ -178,11 +183,10 @@ class OrderView extends Component
     {
         $this->categories = Category::all();
     }
-    
+
 
     public function render()
     {
-
         $orders = \App\Models\Order::query()
             ->when($this->search, fn($q) => $q->where('order_name', 'like', "%{$this->search}%"))
             ->orderBy($this->sortField, $this->sortDirection)

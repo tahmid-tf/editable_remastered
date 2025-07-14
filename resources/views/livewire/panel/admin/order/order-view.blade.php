@@ -57,18 +57,18 @@
                     <th>-</th>
                     <th>
                         <select
-                            class="px-3 py-1 rounded-full bg-white border border-orange-500 text-black text-xs font-weight-bold focus:outline-none focus:ring-2 focus:ring-orange-400 transition"
                             wire:change="update_order_status($event.target.value, {{ $order->id }})"
-
                         >
                             <option value="pending" @if($order->order_status == "pending") selected @endif>Pending
                             </option>
                             <option value="completed" @if($order->order_status == "completed") selected @endif>
                                 Completed
                             </option>
-                            <option value="cancelled" @if($order->order_status == "cancelled") selected @endif>Cancelled
+                            <option value="cancelled" @if($order->order_status == "cancelled") selected @endif>
+                                Cancelled
                             </option>
                         </select>
+
                     </th>
 
 
