@@ -49,13 +49,13 @@
             @foreach($orders as $order)
 
                 <tr>
-                    <th>{{ $loop->iteration }}</th>
-                    <th>{{ $order->order_name }}</th>
-                    <th>{{ $order->created_at }}</th>
-                    <th>#{{ $order->id }}</th>
-                    <th><a href="{{ $order->file_uploaded_by_user }}">File Link</a></th>
-                    <th>-</th>
-                    <th>
+                    <td>{{ $loop->iteration }}</td>
+                    <td>{{ $order->order_name }}</td>
+                    <td>{{ $order->created_at }}</td>
+                    <td>#{{ $order->id }}</td>
+                    <td><a href="{{ $order->file_uploaded_by_user }}">File Link</a></td>
+                    <td>-</td>
+                    <td>
                         <select
                             wire:change="update_order_status($event.target.value, {{ $order->id }})"
                         >
@@ -69,10 +69,10 @@
                             </option>
                         </select>
 
-                    </th>
+                    </td>
 
 
-                    <th>
+                    <td>
                         <select
                             class="px-3 py-1 rounded-full bg-white border border-orange-500 text-black text-xs font-weight-bold focus:outline-none focus:ring-2 focus:ring-orange-400 transition"
                             wire:change="assign_editor($event.target.value, {{ $order->id }})"
@@ -87,8 +87,8 @@
                         </select>
 
 
-                    </th>
-                    <th>
+                    </td>
+                    <td>
 
 
                         <select
@@ -104,22 +104,22 @@
                             <option value="failed" @if($order->payment_status == "failed") selected @endif>Failed
                             </option>
                         </select>
-                    </th>
+                    </td>
 
-                    <th>{{ $order->amount }}$</th>
-                    <th>
+                    <td>{{ $order->amount }}$</td>
+                    <td>
                         @if($order->file_uploaded_by_admin_after_edit == null)
                             -
                         @else
                             <a href="{{ $order->file_uploaded_by_admin_after_edit }}">Download Link</a>
                         @endif
-                    </th>
-                    <th>
+                    </td>
+                    <td>
                         <i class="fas fa-eye" style="cursor: pointer" title="view"
                            wire:click.prevent="payment_info_modal_visibility({{ $order }})"></i>
                         {{--                        <i class="fas fa-pen" style="cursor: pointer; margin-left: 15px" title="update"></i>--}}
                         {{--                        <i class="fas fa-trash-alt" style="cursor: pointer; margin-left: 15px" title="delete"></i>--}}
-                    </th>
+                    </td>
                 </tr>
 
             @endforeach

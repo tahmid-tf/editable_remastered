@@ -27,8 +27,23 @@
     <script src="https://cdn.tailwindcss.com"></script>
 
 
+    <!-- Urbanist -->
+    <link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Inter Variable -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Roboto -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+
     @livewireStyles
 </head>
+
+<style>
+    *{
+        font-family: "urbanist";
+    }
+</style>
 
 <body id="page-top">
 

@@ -47,27 +47,27 @@
             @foreach($orders as $order)
 
                 <tr>
-                    <th>{{ $loop->iteration }}</th>
-                    <th>{{ $order->order_name }}</th>
-                    <th>{{ $order->created_at }}</th>
-                    <th>#{{ $order->id }}</th>
-                    <th><a href="{{ $order->file_uploaded_by_user }}">File Link</a></th>
-                    <th>-</th>
-                    <th>{{ $order->order_status }}</th>
-                    <th>{{ $order->amount }}$</th>
-                    <th>
+                    <td>{{ $loop->iteration }}</td>
+                    <td>{{ $order->order_name }}</td>
+                    <td>{{ $order->created_at }}</td>
+                    <td>#{{ $order->id }}</td>
+                    <td><a href="{{ $order->file_uploaded_by_user }}">File Link</a></td>
+                    <td>-</td>
+                    <td>{{ $order->order_status }}</td>
+                    <td>{{ $order->amount }}$</td>
+                    <td>
                         @if($order->file_uploaded_by_admin_after_edit == null)
                             -
                         @else
                             <a href="{{ $order->file_uploaded_by_admin_after_edit }}">Download Link</a>
                         @endif
-                    </th>
-                    <th>
+                    </td>
+                    <td>
                         <i class="fas fa-eye" style="cursor: pointer" title="view"
                            wire:click.prevent="payment_info_modal_visibility({{ $order }})"></i>
                         {{--                        <i class="fas fa-pen" style="cursor: pointer; margin-left: 15px" title="update"></i>--}}
                         {{--                        <i class="fas fa-trash-alt" style="cursor: pointer; margin-left: 15px" title="delete"></i>--}}
-                    </th>
+                    </td>
                 </tr>
 
             @endforeach

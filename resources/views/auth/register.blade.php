@@ -5,6 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Register to Editable</title>
     <link rel="stylesheet" href="{{ asset('modified/login.css') }}">
+
+    <!-- Urbanist -->
+    <link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        *{
+            font-family: "urbanist";
+        }
+    </style>
 </head>
 <body>
 <div class="left"></div>
