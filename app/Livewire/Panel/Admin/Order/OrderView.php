@@ -162,7 +162,7 @@ class OrderView extends Component
     public function order_completion_modal_function()
     {
         $this->order_completion_modal = !$this->order_completion_modal;
-        $this->resetPage(); // Or emit an event to re-fetch.
+
     }
 
     public function complete_order_submission()
