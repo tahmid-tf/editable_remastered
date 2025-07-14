@@ -16,11 +16,11 @@ class DashboardController extends Controller
     public function dashboard()
     {
         if (auth()->user()->hasRole('admin')) {
-            return redirect()->route('editors');
+            return redirect()->route('admin-order-data');
         }
 
         if (auth()->user()->hasRole('user')) {
-            return redirect()->route('user.settings');
+            return redirect()->route('users.orders.data');
         }
 
         abort(403);

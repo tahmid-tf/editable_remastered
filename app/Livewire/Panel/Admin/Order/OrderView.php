@@ -60,6 +60,10 @@ class OrderView extends Component
     public $payment_status;
     public $order_id;
 
+    //----------------
+
+    public $order_completion_modal = false;
+
 
     // ------------------------------- Assigning Editor-------------------------------
 
@@ -97,6 +101,9 @@ class OrderView extends Component
 
     // ------------------------------- order status -------------------------------
 
+    public $update_order_id = null;
+    public $update_drive_link;
+
     public function update_order_status($selected_value, $order_id)
     {
         $allowed_statuses = ['pending', 'completed', 'cancelled'];
@@ -105,13 +112,18 @@ class OrderView extends Component
             abort(403, 'Invalid payment status.');
         }
 
+        if ($selected_value === 'completed') {
+            $this->update_order_id = $order_id;
+            $this->order_completion_modal_function();
+            return;
+        }
+
         $order = Order::findOrFail($order_id);
 
         $order->update([
             'order_status' => $selected_value,
         ]);
     }
-
 
 
     // ------------------------------- payment information modal-------------------------------
@@ -144,11 +156,29 @@ class OrderView extends Component
     public $order_name;
     public $selectedCategoryId = "";
 
+
+    // ---------------------- order completion form modal ----------------------
+
+    public function order_completion_modal_function()
+    {
+        $this->order_completion_modal = !$this->order_completion_modal;
+    }
+
+    public function complete_order_submission()
+    {
+        $order = Order::where('id', $this->update_order_id)->update([
+            'file_uploaded_by_admin_after_edit' => $this->update_drive_link,
+        ]);
+
+
+    }
+
+
     public function mount()
     {
         $this->categories = Category::all();
     }
-
+    
 
     public function render()
     {
