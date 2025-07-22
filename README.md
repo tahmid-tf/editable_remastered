@@ -49,13 +49,8 @@ requests are welcome!
 
 ---
 
-## 📄 License
-
-Licensed under the [MIT License](LICENSE).
-
----
 
 ## 👋 Author
 
-Crafted with curiosity by **Tahmid**  
+Crafted with curiosity by **Tahmid Ferdous**  
 Exploring the edges of Livewire for cleaner code, snappy UIs, and better user experiences.
